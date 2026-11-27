@@ -1,0 +1,23 @@
+# ____title____
+#
+# A short film. `pnpm build` says it and films the page in index.html, which draws
+# every picture itself. The script tells it which scene it is:
+#
+#   [slide lamp]          the scene the page calls `lamp`
+#   [slide boat step:2]   a second beat of a scene, for the page to use as it likes
+#
+@characters
+NARRATOR: { persona: narrator, name: ____fullName____, title: ____role____ }
+---
+[speakers captions]
+[slide dusk]
+NARRATOR: At dusk the keeper climbs the stairs.
+[slide lamp]
+NARRATOR: The lamp is lit, and the light goes round.
+[slide boat]
+NARRATOR: Somewhere out there, a boat sees it.
+[slide boat step:1]
+NARRATOR: And turns for home.
+[pause 0.5]
+[slide dawn]
+NARRATOR: By morning the lamp is out, and everybody is in.

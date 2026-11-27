@@ -24,15 +24,25 @@ pnpm build        # say and film everything: packages/*/out/*.mp4
 set up, with a speech server, Chrome or Chromium, and a voice for each persona
 the scripts name.
 
-## Add a deck
+## Add something
 
 ```sh
 me init deck quarterly-review --title "The quarter in ten minutes"
 ```
 
 It lands in `packages/quarterly-review`, with a script, a page and a README
-that says what to change. Without the engine, the same template comes from
-`pgpm init --repo constructive-io/media-boilerplates --moduleName quarterly-review`.
+that says what to change.
+
+| `me init …` | Makes |
+| --- | --- |
+| `deck NAME` | a talk with slides that reveal as they are spoken of |
+| `walkthrough NAME` | a tour of an application's screens, with a pointer |
+| `animation NAME` | a film whose pictures the page draws, moving with the voice |
+| `document NAME` | a document read aloud, and the same page as a PDF |
+
+Without the engine, the same templates come from
+`pgpm init --repo constructive-io/media-boilerplates --moduleName quarterly-review`,
+with `--template walkthrough`, `animation` or `document` for the other three.
 
 ## Voices and sounds
 

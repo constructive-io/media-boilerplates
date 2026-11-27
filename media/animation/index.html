@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>____title____</title>
+<!-- The engine hands these two over when it serves this folder. Do not copy them in. -->
+<link rel="stylesheet" href="stage.css">
+<script src="stage.js" defer></script>
+<style>
+  :root {
+    --stage-bg: #0b1220;
+    --stage-ink: #f4f1ea;
+    --stage-accent: #ffd27a;
+    --stage-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  }
+  /* This page draws its own picture, so the player's card for a page with no slides is not wanted. */
+  .stage-card { display: none; }
+  body { background: var(--stage-bg); }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* A scene is a set of rules. The player writes the scene's name on the body as the script reaches it,
+     and anything with a transition moves there by itself. */
+  #sky, #sun, #stars, #glow, #beam, #lamp, #boat, #title { transition: all 1.6s ease; }
+  #sky { fill: #2b3a67; }
+  #sun { transform: translateY(0); }
+  #stars { opacity: 0.25; }
+  #glow, #beam { opacity: 0; }
+  #lamp { fill: #56627a; }
+  #boat { opacity: 0; }
+  #title { opacity: 0; }
+
+  body[data-stage-slide="dusk"] #title { opacity: 1; }
+
+  body[data-stage-slide="lamp"] #sky, body[data-stage-slide="boat"] #sky { fill: #0b1220; }
+  body[data-stage-slide="lamp"] #sun, body[data-stage-slide="boat"] #sun { transform: translateY(420px); }
+  body[data-stage-slide="lamp"] #stars, body[data-stage-slide="boat"] #stars { opacity: 1; }
+  body[data-stage-slide="lamp"] #glow, body[data-stage-slide="boat"] #glow { opacity: 1; }
+  body[data-stage-slide="lamp"] #beam, body[data-stage-slide="boat"] #beam { opacity: 0.5; }
+  body[data-stage-slide="lamp"] #lamp, body[data-stage-slide="boat"] #lamp { fill: var(--stage-accent); }
+  body[data-stage-slide="boat"] #boat { opacity: 1; }
+
+  body[data-stage-slide="dawn"] #sky { fill: #f1b98a; }
+  body[data-stage-slide="dawn"] #sun { transform: translateY(-120px); }
+  body[data-stage-slide="dawn"] #stars { opacity: 0; }
+  body[data-stage-slide="dawn"] #boat { opacity: 1; }
+
+  #title { font: 700 96px var(--stage-font); fill: var(--stage-ink); }
+  #title tspan { font-weight: 500; font-size: 40px; fill: #c5cde0; }
+</style>
+</head>
+<!-- No slides: one picture, drawn here. `plain` keeps the frame, and the words said are drawn over it. -->
+<body data-stage="plain" data-speakers="captions">
+
+<svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <radialGradient id="halo"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ray" x1="0" x2="1"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect id="sky" width="1920" height="1080"/>
+  <g id="stars" fill="#fff">
+    <circle cx="210" cy="140" r="3"/><circle cx="520" cy="90" r="2"/><circle cx="760" cy="210" r="3"/>
+    <circle cx="980" cy="120" r="2"/><circle cx="1130" cy="260" r="2"/><circle cx="1650" cy="110" r="3"/>
+    <circle cx="1790" cy="300" r="2"/><circle cx="340" cy="330" r="2"/><circle cx="1480" cy="230" r="2"/>
+  </g>
+  <circle id="sun" cx="520" cy="640" r="90" fill="#ffb86b"/>
+  <!-- The light: a halo that breathes with the voice, and a beam the clock turns. -->
+  <circle id="glow" cx="1400" cy="372" r="170" fill="url(#halo)"/>
+  <g id="beam"><polygon id="ray-shape" points="1400,372 100,250 100,494" fill="url(#ray)" transform="rotate(0 1400 372)"/></g>
+  <rect y="760" width="1920" height="320" fill="#0d2233"/>
+  <g id="waves" stroke="#2f5d7c" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M0 820 q60 -24 120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0"/>
+    <path d="M-60 900 q60 -24 120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0"/>
+    <path d="M0 990 q60 -24 120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0"/>
+  </g>
+  <g id="boat"><g id="boat-at" transform="translate(300 800)">
+    <path d="M-70 0 h140 l-26 34 h-88 z" fill="#f4f1ea"/><path d="M0 -4 v-92 l58 92 z" fill="#f4f1ea"/>
+  </g></g>
+  <!-- The lighthouse, on its rock. -->
+  <path d="M1180 800 q220 -90 440 0 z" fill="#1a2c3d"/>
+  <path d="M1356 772 l22 -360 h44 l22 360 z" fill="#e9e4d8"/>
+  <path d="M1362 660 h76 l-4 -60 h-68 z M1370 520 h60 l-3 -50 h-54 z" fill="#c8553d"/>
+  <rect x="1366" y="396" width="68" height="16" fill="#1a2c3d"/>
+  <rect id="lamp" x="1378" y="346" width="44" height="50"/>
+  <path d="M1370 346 h60 l-30 -38 z" fill="#1a2c3d"/>
+  <text id="title" x="120" y="330">____title____<tspan x="124" dy="70">told by ____fullName____</tspan></text>
+</svg>
+
+<script>
+  // Everything that moves with the clock is drawn here, once a frame.
+  //
+  //   window.stage.t                 seconds into the recording
+  //   window.stage.level()           how loud the voice is now, from 0 to 1
+  //   window.stage.since('boat', 1)  seconds since the script reached `[slide boat step:1]`, or null before it
+  //   window.stage.when('boat', 1)   when it reaches it, in seconds, or null if it never does
+  //   window.stage.state             { slide, step, line, ... }: where the script is now
+  //
+  // Draw from those alone, never from a count of frames or from what was drawn before:
+  // a film has to come out the same every time, and a preview has to scrub both ways.
+  var ray = document.getElementById('ray-shape');
+  var glow = document.getElementById('glow');
+  var waves = document.getElementById('waves');
+  var boat = document.getElementById('boat-at');
+
+  function draw() {
+    var stage = window.stage;
+    if (stage) {
+      var t = stage.t;
+      ray.setAttribute('transform', 'rotate(' + ((t * 36) % 360).toFixed(2) + ' 1400 372)');
+      glow.setAttribute('r', (150 + 70 * stage.level()).toFixed(1));
+      waves.setAttribute('transform', 'translate(' + (-(t * 30) % 120).toFixed(1) + ' 0)');
+      // The boat drifts until the script reaches `[slide boat step:1]`, then makes for the rock.
+      var x = 300 + 12 * t, turned = stage.since('boat', 1);
+      if (turned !== null) {
+        var along = Math.min(1, turned / 2.5);
+        x += along * along * (3 - 2 * along) * (1050 - x);
+      }
+      boat.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + (800 + 6 * Math.sin(t * 2)).toFixed(1) + ')');
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // The player says when the script moves on, for anything rules cannot do.
+  document.addEventListener('stage:change', function (event) {
+    document.title = '____title____: ' + (event.detail.slide || 'before the first scene');
+  });
+</script>
+
+</body>
+</html>

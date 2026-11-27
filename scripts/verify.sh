@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Scaffold a workspace and two decks as a person would, and check what came out.
+# Scaffold a workspace and one of everything as a person would, and check what came out.
 #
 #   bash scripts/verify.sh              # scaffold and check, then throw it away
 #   bash scripts/verify.sh FOLDER       # the same, and keep what was made in FOLDER
@@ -26,9 +26,15 @@ git -C "$scratch/templates" add --all
 git -C "$scratch/templates" -c user.name=verify -c user.email=verify@example.com -c commit.gpgsign=false \
   commit --quiet --message "what is here now"
 
+# What goes into a workspace besides a deck: the template, what is made from it, and its script.
+kinds=("walkthrough harbour-tour tour.conv" "animation harbour-film scene.conv" "document harbour-report reading.conv")
+
 for folder in "$here"/media/*/; do
   name="$(basename "$folder")"
-  case "$name" in workspace|module) ;; *) echo "media/$name is a template this script does not check"; exit 1 ;; esac
+  case "$name" in workspace|module) continue ;; esac
+  known=""
+  for kind in "${kinds[@]}"; do [ "${kind%% *}" = "$name" ] && known=yes; done
+  [ -n "$known" ] || { echo "media/$name is a template this script does not check"; exit 1; }
 done
 
 # Every answer is given: who made it is not left to whatever git says on this machine.
@@ -37,7 +43,7 @@ deck=(--title "The harbour at night" --fullName "Ada Marsh" --role "Keeper of th
 
 run() { "$@" > "$scratch/init.log" 2>&1 || { cat "$scratch/init.log"; exit 1; }; }
 
-echo "pgpm: a workspace, a deck from its top, a deck from further in"
+echo "pgpm: a workspace, a deck from its top, a deck from further in, and one of everything else"
 rm -rf "$made/pgpm" && mkdir -p "$made/pgpm"
 (cd "$made/pgpm" && run $pgpm init workspace --repo "$scratch/templates" --name "Harbour Talks" \
     "${workspace[@]}" --no-tty --refresh)
@@ -45,6 +51,11 @@ rm -rf "$made/pgpm" && mkdir -p "$made/pgpm"
     "${deck[@]}" --no-tty)
 (cd "$made/pgpm/harbour-talks/packages" && run $pgpm init --repo "$scratch/templates" --moduleName "Second Talk" \
     "${deck[@]}" --no-tty)
+for kind in "${kinds[@]}"; do
+  read -r template name script <<< "$kind"
+  (cd "$made/pgpm/harbour-talks" && run $pgpm init --repo "$scratch/templates" --template "$template" \
+      --moduleName "$name" "${deck[@]}" --no-tty)
+done
 out="$made/pgpm/harbour-talks"
 
 echo "every answer landed"
@@ -61,14 +72,29 @@ for name in first-talk second-talk; do
   grep -q "The harbour at night" "$out/packages/$name/index.html"
   grep -q "name: Ada Marsh, title: Keeper of the light" "$out/packages/$name/talk.conv"
 done
-if find "$out" -name ".boilerplate*.json" -o -name .motd | grep .; then echo "a template's own file was copied in"; exit 1; fi
+for kind in "${kinds[@]}"; do
+  read -r template name script <<< "$kind"
+  for file in package.json README.md AGENTS.md index.html "$script"; do
+    [ -f "$out/packages/$name/$file" ] || { echo "missing: packages/$name/$file"; exit 1; }
+  done
+  grep -q "\"name\": \"$name\"" "$out/packages/$name/package.json"
+  grep -q "out/$name.mp4" "$out/packages/$name/package.json"
+  grep -q "The harbour at night" "$out/packages/$name/index.html"
+  grep -q "name: Ada Marsh, title: Keeper of the light" "$out/packages/$name/$script"
+done
+grep -q "out/harbour-report.pdf" "$out/packages/harbour-report/package.json"
+if find "$out" -name ".boilerplate*.json" -o -name .motd -o -name Makefile | grep .; then echo "a template's own file was copied in"; exit 1; fi
 grep -q '"name": "harbour-talks"' "$out/package.json"
 grep -q '"author": "Ada Marsh <ada@example.com>"' "$out/package.json"
 grep -q "Ada Marsh <ada@example.com>" "$out/LICENSE"
 
-echo "the page of each deck has what its script names"
+echo "every page has what its script names"
 for name in first-talk second-talk; do
   python3 "$here/scripts/follows.py" "$out/packages/$name/talk.conv" "$out/packages/$name/index.html"
+done
+for kind in "${kinds[@]}"; do
+  read -r template name script <<< "$kind"
+  python3 "$here/scripts/follows.py" "$out/packages/$name/$script" "$out/packages/$name/index.html"
 done
 
 if command -v me > /dev/null 2>&1; then
@@ -76,6 +102,10 @@ if command -v me > /dev/null 2>&1; then
   rm -rf "$made/me" && mkdir -p "$made/me"
   (cd "$made/me" && run me init workspace "Harbour Talks" --repo "$here" "${workspace[@]}" "${deck[@]}" --no-tty)
   (cd "$made/me/harbour-talks/packages" && run me init --repo "$here" --moduleName "Second Talk" "${deck[@]}" --no-tty)
+  for kind in "${kinds[@]}"; do
+    read -r template name script <<< "$kind"
+    (cd "$made/me/harbour-talks" && run me init "$template" "$name" --repo "$here" "${deck[@]}" --no-tty)
+  done
   diff -r "$made/pgpm/harbour-talks" "$made/me/harbour-talks"
 else
   echo "me is not installed: scaffolded with pgpm only"

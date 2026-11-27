@@ -1,0 +1,8 @@
+
+  A document that is read aloud.
+
+    pnpm check      is the script a script
+    pnpm pdf        the document on paper: out/____moduleName____.pdf
+    pnpm build      say it and film it: out/____moduleName____.mp4
+    README.md       what to change
+

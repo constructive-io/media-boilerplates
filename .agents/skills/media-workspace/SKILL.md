@@ -1,10 +1,10 @@
 ---
 name: media-workspace
-description: Start and work in a media project made with Constructive Media — a pnpm workspace whose packages are narrated decks, each a `.conv` script and a page. Use when asked to "start a media project", "set up a media workspace", "make a new deck", "add a deck to this repo", "add a talk", "me init", "scaffold a narrated deck", "start a presentation that reads itself", or when a repository has `packages/*/talk.conv` and something in it needs to be made, changed or built.
+description: Start and work in a media project made with Constructive Media — a pnpm workspace whose packages are narrated decks, walkthroughs, animations and documents, each a `.conv` script and a page. Use when asked to "start a media project", "set up a media workspace", "make a new deck", "add a deck to this repo", "add a talk", "me init", "scaffold a narrated deck", "start a presentation that reads itself", or when a repository has `packages/*/*.conv` and something in it needs to be made, changed or built.
 compatibility: Constructive Media (`me`) or pgpm (npm) to scaffold; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to build; ffmpeg to pull frames out
 metadata:
   author: constructive-io
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Media workspace
@@ -36,8 +36,11 @@ films the page following the recording.
 | a new project | `me init workspace NAME` — the workspace and a first deck |
 | a new project, nothing in it | `me init workspace NAME --bare` |
 | another deck, in a workspace | `me init deck NAME --title "…"` at the top of the workspace: it lands in `packages/NAME` |
-| a deck in a pnpm workspace that is not a media one | the same. The deck is a package and brings nothing else |
-| the engine is not installed | `pgpm init workspace --repo constructive-io/media-boilerplates --name NAME`, then inside it `pgpm init --repo constructive-io/media-boilerplates --moduleName NAME` |
+| a tour of an application's screens, with a pointer | `me init walkthrough NAME` |
+| pictures the page draws, moving with the voice | `me init animation NAME` |
+| a document read aloud, and printed as a PDF | `me init document NAME` |
+| any of them in a pnpm workspace that is not a media one | the same. Each is a package and brings nothing else |
+| the engine is not installed | `pgpm init workspace --repo constructive-io/media-boilerplates --name NAME`, then inside it `pgpm init --repo constructive-io/media-boilerplates --moduleName NAME` for a deck. Add `--template walkthrough`, `animation` or `document` for the others |
 
 Every question a template asks is a flag, and `me init --list` shows them:
 `--title`, `--fullName` (who is speaking), `--role` (under their name),
@@ -61,11 +64,13 @@ Inside a package, `pnpm preview` plays the page in a browser with the sound, to
 scrub through before filming, and `pnpm say` re-says only lines whose words
 changed.
 
-To change a deck, change its two files. What a mark in the script does
+To change a package, change its two files. What a mark in the script does
 (`[slide NAME step:N]`, `[speakers lower-third captions]`, `[pause 0.5]`) and
 what an attribute in the page does (`data-slide`, `data-step`, `data-enter`) is
-in the package's own README, and in the
-[narrated-video skill](https://github.com/constructive-io/video-boilerplates/blob/main/.agents/skills/narrated-video/SKILL.md).
+in the package's own README, and in two skills beside this one:
+[narrated-video](../narrated-video/SKILL.md) for a deck, a walkthrough or an
+animation, and [narrated-document](../narrated-document/SKILL.md) for a
+document, which also has `pnpm pdf`.
 A slide the script names and the page lacks is refused before anything is said.
 
 ## Voices
@@ -110,5 +115,4 @@ nothing of this machine's libraries. In that package set `lint` to
 
 - [constructive-media](https://github.com/constructive-io/constructive-media): the engine and its own skill.
 - [conversation-format](https://github.com/constructive-io/conversation-format): the `.conv` format and the `conv` skill.
-- [video-boilerplates](https://github.com/constructive-io/video-boilerplates): walkthroughs and animations.
 - [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates): start a library of voices.

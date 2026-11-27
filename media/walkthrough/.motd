@@ -1,0 +1,7 @@
+
+  A walkthrough that follows a script.
+
+    pnpm check      is the script a script
+    pnpm build      say it and film it: out/____moduleName____.mp4
+    README.md       what to change
+

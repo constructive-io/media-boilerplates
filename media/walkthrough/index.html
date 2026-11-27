@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>____title____</title>
+<!-- The engine hands these two over when it serves this folder. Do not copy them in. -->
+<link rel="stylesheet" href="stage.css">
+<script src="stage.js" defer></script>
+<style>
+  :root {
+    --stage-bg: #101820;
+    --stage-ink: #f4f1ea;
+    --stage-dim: #8fa0b3;
+    --stage-accent: #ff7a59;
+    --stage-font: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  }
+
+  /* In a tour the parts of a screen are there all along; a step only sends the pointer. */
+  [data-step] { opacity: 1; transform: none; }
+  [data-step].is-now { box-shadow: 0 0 0 4px var(--stage-accent); }
+
+  /* A screen fills the frame. With screenshots, this is all a screen needs. */
+  .screen { padding: 0; display: block; background: #e9edf2; color: #1c2733; font-size: 26px; }
+  .screen > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .spot { position: absolute; width: 0; height: 0; }
+
+  /* A made-up application, drawn in HTML so the template carries no pictures. Replace it with yours. */
+  .bar { height: 88px; padding: 0 48px; display: flex; align-items: center; gap: 32px; background: #16324a; color: #fff; }
+  .bar b { font-size: 30px; letter-spacing: 0.02em; }
+  .bar input { margin-left: auto; width: 420px; padding: 12px 20px; border: 0; border-radius: 12px; font: inherit; background: #ffffff22; color: #fff; }
+  .bar input::placeholder { color: #ffffffaa; }
+  .button { padding: 14px 28px; border-radius: 12px; background: #ff7a59; color: #fff; font-weight: 700; }
+  .sheet { margin: 56px auto 0; width: 1500px; border-radius: 20px; background: #fff; box-shadow: 0 12px 40px #16324a22; overflow: hidden; }
+  .sheet .row { display: grid; grid-template-columns: 2fr 1fr 1fr 2fr; padding: 24px 40px; border-top: 1px solid #e3e8ee; }
+  .sheet .row.head { border: 0; background: #f4f6f9; font-size: 20px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8c; }
+  .form { margin: 96px auto 0; width: 820px; padding: 56px; border-radius: 20px; background: #fff; box-shadow: 0 12px 40px #16324a22; }
+  .form h3 { margin: 0 0 32px; font-size: 36px; }
+  .form label { display: block; margin-bottom: 28px; font-size: 20px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8c; }
+  .form label span { display: block; margin-top: 10px; padding: 18px 22px; border: 2px solid #d5dce5; border-radius: 12px; font-size: 28px; letter-spacing: 0; text-transform: none; color: #1c2733; }
+  .form .button { display: inline-block; }
+
+  .card { background: radial-gradient(120% 90% at 20% 10%, #1d3145 0%, var(--stage-bg) 65%); }
+  .card small { display: block; margin-top: 0.5em; font-size: 0.38em; font-weight: 500; color: var(--stage-dim); }
+</style>
+</head>
+<!-- A walkthrough: a deck with a pointer that goes to the step being spoken of. -->
+<body data-stage="walkthrough">
+
+<section data-slide="welcome" class="card">
+  <h1>____title____ <small>with ____fullName____</small></h1>
+</section>
+
+<section data-slide="log" class="screen">
+  <div class="bar">
+    <b>Harbour log</b>
+    <input data-step="2" placeholder="Search for a boat" readonly>
+    <span class="button" data-step="3">New line</span>
+  </div>
+  <div class="sheet">
+    <div class="row head"><span>Boat</span><span>Came in</span><span>Berth</span><span>Seen by</span></div>
+    <div class="row" data-step="1"><span>Marigold</span><span>21:40</span><span>North 4</span><span>A. Marsh</span></div>
+    <div class="row"><span>Petrel</span><span>19:05</span><span>North 2</span><span>G. Okafor</span></div>
+    <div class="row"><span>Saltwind</span><span>16:30</span><span>South 1</span><span>A. Marsh</span></div>
+    <div class="row"><span>Little Tern</span><span>11:15</span><span>South 3</span><span>G. Okafor</span></div>
+  </div>
+</section>
+
+<section data-slide="entry" class="screen">
+  <div class="bar"><b>Harbour log</b></div>
+  <div class="form">
+    <h3>A new line</h3>
+    <label>Boat <span data-step="1">Kittiwake</span></label>
+    <label>Came in <span data-step="2">22:10</span></label>
+    <span class="button" data-step="3">Save</span>
+  </div>
+</section>
+
+<section data-slide="close" class="card">
+  <h1>That is the whole of it.</h1>
+</section>
+
+</body>
+</html>

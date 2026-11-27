@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "requiresWorkspace": "pnpm",
+  "questions": [
+    {
+      "name": "____title____",
+      "message": "The title of the document",
+      "default": "A short report",
+      "required": true
+    },
+    {
+      "name": "____fullName____",
+      "message": "Who wrote it, and reads it aloud",
+      "setFrom": "workspace.author.name",
+      "defaultFrom": "git.user.name",
+      "required": true
+    },
+    {
+      "name": "____role____",
+      "message": "What is written under their name",
+      "default": "Author",
+      "required": true
+    }
+  ]
+}

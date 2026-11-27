@@ -1,0 +1,33 @@
+# ____title____
+#
+# A tour of a screen. `pnpm build` says it and films the page in index.html.
+# In a walkthrough a pointer goes to whatever the script is speaking of:
+#
+#   [slide log]           show the screen the page calls `log`
+#   [slide log step:2]    send the pointer to the part marked data-step="2"
+#
+@characters
+NARRATOR: { persona: narrator, name: ____fullName____, title: ____role____ }
+---
+[speakers captions]
+[slide welcome]
+NARRATOR: This is a tour of the harbour log. It takes half a minute.
+[slide log]
+NARRATOR: Every boat that comes in gets a line here.
+[slide log step:1]
+NARRATOR: The newest is at the top.
+[slide log step:2]
+NARRATOR: Search finds a boat by her name.
+[slide log step:3]
+NARRATOR: And this button writes a new line.
+[slide entry]
+NARRATOR: A new line asks for three things.
+[slide entry step:1]
+NARRATOR: The name of the boat.
+[slide entry step:2]
+NARRATOR: When she came in.
+[slide entry step:3]
+NARRATOR: Then save, and she is in the log.
+[pause 0.4]
+[slide close]
+NARRATOR: That is the whole of it.

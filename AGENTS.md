@@ -1,7 +1,8 @@
 # media-boilerplates — agent guide
 
-What `me init` starts a project from: a pnpm workspace, and a narrated deck that goes in
-one. The templates are in the pgpm boilerplate format, so `pgpm init --repo` reads them
+What `me init` starts a project from: a pnpm workspace, and what goes in one — a narrated
+deck, a walkthrough, an animation, a document that is read aloud. The templates are in
+the pgpm boilerplate format, so `pgpm init --repo` reads them
 too. See [README.md](./README.md).
 
 ## Rules that are specific to this repository
@@ -26,7 +27,13 @@ too. See [README.md](./README.md).
   a question in that template's `.boilerplate.json`, and a question nothing uses is
   removed. `tests/test_templates.py` holds both.
 - **A new template** is a folder under `media/` with a `.boilerplate.json`, a row in the
-  README's table, and a line in `scripts/verify.sh`.
+  README's table, a line in `TEMPLATES` and `SCRIPTS` of `tests/test_templates.py`, and a
+  line in `kinds` of `scripts/verify.sh`. One with a script is a `module` that needs a
+  `pnpm` workspace, with the same script names as the others.
+- **This is the one place for project templates.** A deck, a walkthrough, an animation
+  and a document were once in repositories of their own, with a Makefile each. They are
+  here now, as packages. Voices are a different kind of thing and stay in
+  [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
 - **MIT.** Nothing copied in under another license.
 
 ## Before you say it is done
@@ -43,16 +50,21 @@ CI cannot film. After changing a page or a script, film it yourself and look:
 
 ```sh
 bash scripts/verify.sh /tmp/made
-cd /tmp/made/pgpm/harbour-talks && pnpm install && pnpm build
-ffmpeg -ss 10 -i packages/first-talk/out/first-talk.mp4 -frames:v 1 frame.png
+cd /tmp/made/pgpm/harbour-talks && pnpm install && pnpm --filter harbour-tour build
+ffmpeg -ss 10 -i packages/harbour-tour/out/harbour-tour.mp4 -frames:v 1 frame.png
 ```
 
 Say which frames you looked at. A film nobody looked at is not checked.
 
-## The media-workspace skill
+## The skills
 
-How a project is started and worked in is a skill in this repo:
-`.agents/skills/media-workspace/SKILL.md`.
+Three skills live here, and a template that changes takes its skill with it:
+
+| Skill | Says how to |
+| --- | --- |
+| `.agents/skills/media-workspace/SKILL.md` | start a project, add to it and build it |
+| `.agents/skills/narrated-video/SKILL.md` | write a deck, a walkthrough or an animation |
+| `.agents/skills/narrated-document/SKILL.md` | write a document that is read aloud and printed |
 
 ```sh
 npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace

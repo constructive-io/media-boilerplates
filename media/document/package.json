@@ -1,0 +1,17 @@
+{
+  "name": "____moduleName____",
+  "version": "0.0.1",
+  "description": "A document that is read aloud, and printed",
+  "author": "____fullName____",
+  "private": true,
+  "scripts": {
+    "lint": "conv check reading.conv",
+    "check": "me conv reading.conv",
+    "say": "me say reading.conv out/____moduleName____.flac",
+    "film": "me film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
+    "pdf": "mkdir -p out && me print . out/____moduleName____.pdf",
+    "build": "pnpm run say && pnpm run film",
+    "preview": "pnpm run say && me stage out/____moduleName____.flac --page .",
+    "clean": "rm -rf out"
+  }
+}

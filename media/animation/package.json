@@ -1,0 +1,16 @@
+{
+  "name": "____moduleName____",
+  "version": "0.0.1",
+  "description": "A short film whose pictures are a page, made from a script",
+  "author": "____fullName____",
+  "private": true,
+  "scripts": {
+    "lint": "conv check scene.conv",
+    "check": "me conv scene.conv",
+    "say": "me say scene.conv out/____moduleName____.flac",
+    "film": "me film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
+    "build": "pnpm run say && pnpm run film",
+    "preview": "pnpm run say && me stage out/____moduleName____.flac --page .",
+    "clean": "rm -rf out"
+  }
+}

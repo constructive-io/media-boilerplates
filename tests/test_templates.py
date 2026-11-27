@@ -13,6 +13,13 @@ FILLED = {"workspace": {"name", "workspaceName"}, "module": {"moduleName", "pack
 OWN = {".boilerplate.json", ".boilerplate.js", ".boilerplates.json"}
 #: Asked for the LICENSE file that is written, whether or not a file has the blank.
 ALWAYS_USED = {"license"}
+#: Every template, and what `.boilerplate.json` calls its kind. One with a script is a package of a workspace.
+TEMPLATES = {"workspace": "workspace", "module": "module", "animation": "module", "walkthrough": "module",
+             "document": "module"}
+#: The script each one that has a script is made from.
+SCRIPTS = {"module": "talk.conv", "animation": "scene.conv", "walkthrough": "tour.conv", "document": "reading.conv"}
+#: The skills this repository holds.
+SKILLS = ("media-workspace", "narrated-video", "narrated-document")
 
 
 def templates():
@@ -40,10 +47,11 @@ def filled(text):
 
 
 class TemplatesTest(unittest.TestCase):
-    def test_there_is_a_workspace_and_a_module(self):
+    def test_there_is_a_workspace_and_what_goes_in_one(self):
         root = json.loads((ROOT / ".boilerplates.json").read_text(encoding="utf-8"))
         kinds = {folder.name: read(folder)["type"] for folder in templates()}
-        self.assertEqual(kinds, {"workspace": "workspace", "module": "module"})
+        self.assertEqual(kinds, TEMPLATES)
+        self.assertEqual(set(SCRIPTS), {name for name, kind in TEMPLATES.items() if kind == "module"})
         self.assertEqual({folder.parent for folder in templates()}, {ROOT / root["dir"]})
 
     def test_what_only_the_engine_reads_names_templates_that_are_there(self):
@@ -91,6 +99,27 @@ class TemplatesTest(unittest.TestCase):
             self.assertFalse((folder / "Makefile").exists(), "a package's commands are its scripts")
             for name in ("README.md", "AGENTS.md", ".motd"):
                 self.assertTrue((folder / name).is_file(), f"{folder.name} has no {name}")
+            if folder.name in SCRIPTS:
+                # The workspace ignores what is rendered, and runs these in every package.
+                self.assertFalse((folder / ".gitignore").exists(), f"{folder.name}: the workspace ignores out/")
+                self.assertEqual(package["scripts"]["lint"], f"conv check {SCRIPTS[folder.name]}")
+                self.assertEqual(package["scripts"]["check"], f"me conv {SCRIPTS[folder.name]}")
+                for script in ("say", "film", "preview", "clean"):
+                    self.assertIn(script, package["scripts"], f"{folder.name} has no {script}")
+                self.assertIs(package["private"], True)
+
+    def test_a_command_a_template_names_is_one_it_has(self):
+        for name in SCRIPTS:
+            folder = ROOT / "media" / name
+            scripts = json.loads(filled((folder / "package.json").read_text(encoding="utf-8")))["scripts"]
+            for path in files(folder):
+                if path.name == "package.json":
+                    continue
+                text = path.read_text(encoding="utf-8")
+                self.assertIsNone(re.search(r"\bmake (check|sound|preview|pdf)\b|`make`|Makefile", text),
+                                  f"{path.relative_to(ROOT)} speaks of make")
+                for said in re.findall(r"`pnpm ([a-z]+)`", text):
+                    self.assertIn(said, scripts, f"{path.relative_to(ROOT)} names `pnpm {said}`")
 
     def test_the_workspace_is_a_pnpm_workspace_as_constructive_makes_one(self):
         folder = ROOT / "media" / "workspace"
@@ -106,34 +135,52 @@ class TemplatesTest(unittest.TestCase):
         self.assertIn("**/out/", (folder / ".gitignore").read_text(encoding="utf-8").split())
         self.assertIn("pnpm lint", (folder / ".github/workflows/ci.yml").read_text(encoding="utf-8"))
 
-    def test_the_deck_names_no_voice_and_holds_nothing_rendered(self):
-        folder = ROOT / "media" / "module"
-        script = (folder / "talk.conv").read_text(encoding="utf-8")
-        self.assertIn("persona: narrator", script)
-        for word in ("@include", "voice:", "backend:"):
-            self.assertNotIn(word, script)
-        page = (folder / "index.html").read_text(encoding="utf-8")
-        self.assertIn("stage.js", page)
-        self.assertFalse((folder / "stage.js").exists(), "the engine hands the page its stage")
+    def test_a_template_names_no_voice_and_holds_nothing_rendered(self):
+        for name, called in SCRIPTS.items():
+            folder = ROOT / "media" / name
+            self.assertEqual([path.name for path in folder.glob("*.conv")], [called])
+            script = (folder / called).read_text(encoding="utf-8")
+            self.assertIn("persona: narrator", script, name)
+            for word in ("@include", "voice:", "backend:"):
+                self.assertNotIn(word, script, name)
+            page = (folder / "index.html").read_text(encoding="utf-8")
+            self.assertIn("stage.js", page, name)
+            self.assertFalse((folder / "stage.js").exists(), "the engine hands the page its stage")
         kept = {path.suffix for path in files(ROOT) if ".git" not in path.parts and "node_modules" not in path.parts}
         self.assertEqual(kept & {".wav", ".flac", ".mp3", ".mp4", ".mov", ".png", ".jpg", ".safetensors"}, set())
 
-    def test_the_page_of_the_deck_has_what_its_script_names(self):
+    def test_every_page_has_what_its_script_names(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location("follows", ROOT / "scripts" / "follows.py")
         follows = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(follows)
-        folder = ROOT / "media" / "module"
-        self.assertEqual(follows.follows((folder / "talk.conv").read_text(encoding="utf-8"),
-                                         (folder / "index.html").read_text(encoding="utf-8")), [])
+        for name, called in SCRIPTS.items():
+            folder = ROOT / "media" / name
+            self.assertEqual(follows.follows((folder / called).read_text(encoding="utf-8"),
+                                             (folder / "index.html").read_text(encoding="utf-8")), [], name)
 
-    def test_the_readme_lists_every_template_and_the_skill_is_where_it_says(self):
+    def test_the_readme_lists_every_template_and_the_skills_are_where_it_says(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         for folder in templates():
             self.assertIn(f"(./{folder.relative_to(ROOT)})", readme)
-        self.assertTrue((ROOT / ".agents/skills/media-workspace/SKILL.md").is_file())
         guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        self.assertIn(".agents/skills/media-workspace/SKILL.md", guide)
+        for skill in SKILLS:
+            written = ROOT / ".agents/skills" / skill / "SKILL.md"
+            self.assertTrue(written.is_file(), skill)
+            self.assertIn(f"name: {skill}\n", written.read_text(encoding="utf-8"))
+            self.assertIn(f".agents/skills/{skill}/SKILL.md", guide)
+            self.assertIn(f"--skill {skill}", readme)
+
+    def test_a_skill_starts_a_thing_the_way_this_repository_does(self):
+        for skill in SKILLS:
+            text = (ROOT / ".agents/skills" / skill / "SKILL.md").read_text(encoding="utf-8")
+            self.assertIsNone(re.search(r"\bmake (check|sound|preview|pdf)\b|`make`|Makefile", text), skill)
+            for old in ("video-boilerplates", "document-boilerplates"):
+                self.assertNotIn(old, text, f"{skill} sends a reader to a repository that was folded into this one")
+            for name in re.findall(r"me init ([a-z]+) ", text):
+                self.assertIn(name, set(TEMPLATES) | {"deck"}, f"{skill} starts from `{name}`")
+            for name in re.findall(r"--template ([a-z]+)", text):
+                self.assertIn(name, TEMPLATES, f"{skill} starts from `{name}`")
 
 
 if __name__ == "__main__":

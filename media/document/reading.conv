@@ -1,0 +1,37 @@
+# ____title____
+#
+# A document that is read aloud. `pnpm build` says this and films index.html
+# scrolling to wherever the voice is. `pnpm pdf` prints the same page.
+#
+#   [slide what]           go to the section the page calls `what`
+#   [slide what step:2]    light up the part of it marked data-step="2"
+#
+# The voice need not read every word on the page. Say what a reader would
+# want to be told; the page holds the rest.
+#
+@characters
+NARRATOR: { persona: narrator, name: ____fullName____, title: ____role____ }
+---
+[speakers lower-third captions]
+[slide title]
+NARRATOR: This is a short report on how the harbour log is kept.
+[speakers captions]
+[slide why]
+NARRATOR: The log exists for one reason. When a boat is late, somebody has to know when she was last seen.
+[slide what]
+NARRATOR: So every night, three things are written down.
+[slide what step:1]
+NARRATOR: When the lamp was lit, to the minute.
+[slide what step:2]
+NARRATOR: Which boats came in, by name.
+[slide what step:3]
+NARRATOR: And what the weather did.
+[slide rules]
+NARRATOR: There are only two rules.
+[slide rules step:1]
+NARRATOR: Write it the same night.
+[slide rules step:2]
+NARRATOR: And never rub anything out.
+[pause 0.4]
+[slide close]
+NARRATOR: That is the whole report. The page has the detail.

@@ -12,7 +12,7 @@
 </p>
 
 <p align="center" width="100%">
-  Start a media project in one command: a workspace of talks that are written, not recorded.
+  Start a media project in one command: a workspace of talks, tours, films and documents that are written, not recorded.
 </p>
 
 ```sh
@@ -30,21 +30,31 @@ holds the slides. [Constructive Media](https://github.com/constructive-io/constr
 (`me`) says the script in a voice, checks every line by listening back to it,
 and films the page as it follows the recording.
 
-Another deck, in a workspace you already have:
+Something else, in a workspace you already have:
 
 ```sh
 me init deck quarterly-review --title "The quarter in ten minutes"
+me init walkthrough first-day --title "Your first day in the log"
+me init animation how-it-works
+me init document annual-report
 ```
 
-It lands in `packages/quarterly-review`. Any pnpm workspace will do: the deck
-is a package with a `package.json`, and brings nothing else with it.
+Each lands in `packages/NAME`. Any pnpm workspace will do: what is made is a
+package with a `package.json`, and brings nothing else with it.
 
 ## Templates
 
 | Template | Is | Lands |
 | --- | --- | --- |
 | [`workspace`](./media/workspace) | a pnpm workspace: `packages/*`, the script checker, CI that reads every script | in a new folder named for it, or the empty folder you are in if it has that name |
-| [`module`](./media/module), also called `deck` | a narrated deck as a package: a script, a page, and `pnpm build` | in `packages/NAME` from the top of a pnpm workspace, or `./NAME` anywhere else |
+| [`module`](./media/module), also called `deck` | a narrated deck: slides that reveal as they are spoken of | in `packages/NAME` from the top of a pnpm workspace, or `./NAME` anywhere else |
+| [`walkthrough`](./media/walkthrough) | a tour of an application's screens, with a pointer that goes to what is being spoken of | the same |
+| [`animation`](./media/animation) | a film whose pictures the page draws for itself, moving with the voice | the same |
+| [`document`](./media/document) | a document read aloud, scrolling to where the voice is, and the same page as a PDF | the same |
+
+Every one but the workspace is a package: a `.conv` script, a page of HTML, and
+a `package.json` whose scripts are `lint`, `check`, `say`, `film`, `build`,
+`preview` and `clean`. The document has `pdf` as well.
 
 `me init workspace NAME` makes the workspace and its first deck together.
 `--bare` makes the workspace alone. `me init --list` says what each template
@@ -62,6 +72,7 @@ npm install -g pgpm
 pgpm init workspace --repo constructive-io/media-boilerplates --name harbour-talks
 cd harbour-talks
 pgpm init --repo constructive-io/media-boilerplates --moduleName first-talk
+pgpm init --repo constructive-io/media-boilerplates --template walkthrough --moduleName first-day
 ```
 
 Both tools write the same files in the same places. `me init` reads this
@@ -116,12 +127,20 @@ bash scripts/verify.sh                    # scaffolds with pgpm, and with me whe
 `scripts/verify.sh FOLDER` keeps what it scaffolded, to run `pnpm build` in.
 Filming is not part of CI: it takes the engine and a voice.
 
+## Skills
+
+Three skills say how the work is done, for an agent that is asked to do it:
+
+```sh
+npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace      # start a project, add to it, build it
+npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-video       # write a deck, a walkthrough or an animation
+npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-document    # write a document that is read aloud
+```
+
 ## Related
 
 - [constructive-media](https://github.com/constructive-io/constructive-media): the engine that says a script and films a page, and `me init`.
 - [conversation-format](https://github.com/constructive-io/conversation-format): the `.conv` format the scripts are written in.
-- [video-boilerplates](https://github.com/constructive-io/video-boilerplates): a walkthrough of an application, an animation, a deck on its own.
-- [document-boilerplates](https://github.com/constructive-io/document-boilerplates): a document that is read aloud.
 - [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates): a library of voices, sounds and faces.
 - [constructive](https://github.com/constructive-io/constructive): pgpm, whose `init` these templates are written for.
 

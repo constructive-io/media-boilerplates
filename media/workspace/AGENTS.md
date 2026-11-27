@@ -8,8 +8,9 @@ attributes do.
 
 ## Rules
 
-- **A new deck is `me init deck NAME`**, run at the top of the workspace. Do not copy a
-  package by hand: a copy keeps the old name in its scripts.
+- **A new package is `me init deck NAME`**, run at the top of the workspace, or
+  `walkthrough`, `animation` or `document` in place of `deck`. Do not copy a package by
+  hand: a copy keeps the old name in its scripts.
 - **The script decides what is on the screen.** A change on the screen is a mark in the
   script, on the line before the words it goes with. A page times nothing itself.
 - **A script names personas, never voices.** A voice is given to a persona on a machine
@@ -37,6 +38,7 @@ back to it; nobody has heard it until a person has.
 
 ```sh
 npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace
-npx skills add https://github.com/constructive-io/video-boilerplates --skill narrated-video
+npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-video
+npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-document
 npx skills add https://github.com/constructive-io/conversation-format --skill conv
 ```

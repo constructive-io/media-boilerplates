@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>____title____</title>
+<!-- The engine hands these two over when it serves this folder. Do not copy them in. -->
+<link rel="stylesheet" href="stage.css">
+<script src="stage.js" defer></script>
+<style>
+  /* The look of the document on a screen and in the film. */
+  :root {
+    --stage-bg: #f6f3ec;
+    --stage-ink: #1c2733;
+    --stage-dim: #5f6c7b;
+    --stage-accent: #c8553d;
+    --stage-font: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  }
+  h1 { margin: 0 0 0.2em; font-size: 2.4em; line-height: 1.1; }
+  h2 { margin: 1.6em 0 0.4em; font-size: 1.5em; line-height: 1.15; }
+  p, li { margin: 0 0 0.7em; }
+  .byline { color: var(--stage-dim); font-style: italic; }
+  .summary { font-size: 1.15em; }
+  table { width: 100%; margin: 0.6em 0 1em; border-collapse: collapse; font-size: 0.9em; }
+  th, td { padding: 0.5em 0.7em; border-bottom: 1px solid #d9d2c3; text-align: left; vertical-align: top; }
+  th { font-size: 0.75em; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stage-dim); }
+  ol { padding-left: 1.2em; }
+
+  /* The look of it on paper: `pnpm pdf`. */
+  @page { size: A4; margin: 24mm 22mm; }
+  @media print {
+    body { max-width: none; font-size: 11.5pt; }
+    h2 { break-after: avoid; }
+    table, li { break-inside: avoid; }
+  }
+</style>
+</head>
+<!-- A document: one page. As it is read aloud it scrolls to the section being spoken of. -->
+<body data-stage="document">
+<article>
+
+<section data-slide="title">
+  <h1>____title____</h1>
+  <p class="byline">____fullName____, ____role____</p>
+  <p class="summary">The harbour log is one book, written in every night by whoever
+  keeps the light. This report says what goes in it, why, and the two rules
+  that make it worth having.</p>
+</section>
+
+<section data-slide="why">
+  <h2>Why there is a log</h2>
+  <p>When a boat is late, the first question is when she was last seen, and by
+  whom. Memory is no use for that after a week. The log answers it in the time
+  it takes to turn back a page.</p>
+  <p>It has a second use nobody planned. Read a year at a time, it shows which
+  berths silt up, which months bring fog, and how often the lamp is lit late.</p>
+</section>
+
+<section data-slide="what">
+  <h2>What is written down</h2>
+  <p>Three things, every night, in this order.</p>
+  <table>
+    <tr><th>What</th><th>How</th><th>For example</th></tr>
+    <tr data-step="1"><td>When the lamp was lit</td><td>To the minute, by the clock on the stair</td><td>Lit 17:42</td></tr>
+    <tr data-step="2"><td>Which boats came in</td><td>By name, with the berth and the hour</td><td>Marigold, North 4, 21:40</td></tr>
+    <tr data-step="3"><td>What the weather did</td><td>Wind, sea, and how far one could see</td><td>SW 5, moderate, 3 miles</td></tr>
+  </table>
+  <p>A boat whose name cannot be read is written down as she looked: her rig,
+  her colour, which way she went.</p>
+</section>
+
+<section data-slide="rules">
+  <h2>The two rules</h2>
+  <ol>
+    <li data-step="1"><strong>Write it the same night.</strong> A line written the
+    next morning is a guess, and it reads exactly like one that is not.</li>
+    <li data-step="2"><strong>Never rub anything out.</strong> A mistake is struck
+    through once, so that it can still be read, and the right line is written
+    under it.</li>
+  </ol>
+</section>
+
+<section data-slide="close">
+  <h2>In short</h2>
+  <p>One book, three things a night, two rules. Everything else about the log
+  is habit, and habits may change with the keeper.</p>
+</section>
+
+</article>
+</body>
+</html>
