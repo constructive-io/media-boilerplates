@@ -55,6 +55,10 @@ me library lock                       # media-libraries.json: which libraries, a
 Commit `media-libraries.json`. On another machine `pnpm libraries` adds the
 same libraries at the same commits.
 
+A script that takes sounds from a library (`@include some-bank`) is one `conv`
+cannot check alone, since only the engine knows this machine's libraries. In
+that package, make `lint` the same as `check`: `me conv talk.conv`.
+
 ## What is kept and what is not
 
 Scripts, pages and `media-libraries.json` are committed. Nothing rendered is:

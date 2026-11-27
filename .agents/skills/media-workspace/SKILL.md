@@ -91,6 +91,11 @@ me library lock                             # writes media-libraries.json: commi
 the same commits. A voice is cloned only from somebody who has said yes, and a
 library says so for each voice it holds.
 
+A script with `@include NAME` for a bank that comes from a library fails
+`pnpm lint`: `conv` looks for `banks/NAME.sounds` beside the script and knows
+nothing of this machine's libraries. In that package set `lint` to
+`me conv talk.conv`, and say that CI can no longer read that script.
+
 ## Done means looked at
 
 - `pnpm lint` passes.
