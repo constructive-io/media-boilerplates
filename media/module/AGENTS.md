@@ -1,7 +1,7 @@
 # ____moduleName____ — agent guide
 
 A talk with slides, made from a script. [`talk.conv`](./talk.conv) is the script, [`index.html`](./index.html) the page, and
-[Constructive Media](https://github.com/constructive-io/constructive-media) (`media`) says
+[Constructive Media](https://github.com/constructive-io/media-engine) (`media`) says
 the one and films the other. [README.md](./README.md) says what each mark and attribute
 does.
 

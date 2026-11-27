@@ -8,18 +8,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BLANK = re.compile(r"____([A-Za-z_][A-Za-z0-9_]*?)____")
 #: What the tool that scaffolds fills in itself, by the kind of template.
-FILLED = {"workspace": {"name", "workspaceName"}, "module": {"moduleName", "packageIdentifier"}}
+FILLED = {"workspace": {"name", "workspaceName"}, "module": {"moduleName", "packageIdentifier"},
+          "generic": {"moduleName", "packageIdentifier"}}
 #: Never copied into what is made.
 OWN = {".boilerplate.json", ".boilerplate.js", ".boilerplates.json"}
 #: Asked for the LICENSE file that is written, whether or not a file has the blank.
 ALWAYS_USED = {"license"}
 #: Every template, and what `.boilerplate.json` calls its kind. One with a script is a package of a workspace.
+#: A library is neither: it is a repository of its own, made wherever it is asked for.
 TEMPLATES = {"workspace": "workspace", "module": "module", "animation": "module", "walkthrough": "module",
-             "document": "module"}
+             "document": "module", "library": "generic"}
+#: What is a repository of its own, with no `package.json`.
+APART = {"library"}
 #: The script each one that has a script is made from.
 SCRIPTS = {"module": "talk.conv", "animation": "scene.conv", "walkthrough": "tour.conv", "document": "reading.conv"}
 #: The skills this repository holds.
-SKILLS = ("media-workspace", "narrated-video", "narrated-document")
+SKILLS = ("media-workspace", "narrated-video", "narrated-document", "voice-library", "build-a-voice")
 
 
 def templates():
@@ -31,7 +35,8 @@ def read(folder):
 
 
 def files(folder):
-    return [path for path in sorted(folder.rglob("*")) if path.is_file() and path.name not in OWN]
+    return [path for path in sorted(folder.rglob("*"))
+            if path.is_file() and path.name not in OWN and "__pycache__" not in path.parts]
 
 
 def blanks(folder):
@@ -89,16 +94,22 @@ class TemplatesTest(unittest.TestCase):
             if described["type"] == "module":
                 # Left out, pgpm takes it to need a pgpm workspace, and refuses a media one.
                 self.assertEqual(described.get("requiresWorkspace"), "pnpm")
+            if folder.name in APART:
+                # Left out, both tools would look for a workspace to put it in.
+                self.assertIs(described.get("requiresWorkspace"), False)
             self.assertNotIn("skills", described, "skills are installed from repositories a reader may not have")
 
     def test_what_is_made_is_what_it_should_be(self):
         for folder in templates():
+            for name in ("README.md", "AGENTS.md", ".motd"):
+                self.assertTrue((folder / name).is_file(), f"{folder.name} has no {name}")
+            if folder.name in APART:
+                self.assertFalse((folder / "package.json").exists(), f"{folder.name} is not a package")
+                continue
             package = json.loads(filled((folder / "package.json").read_text(encoding="utf-8")))
             self.assertIn("lint", package["scripts"])
             self.assertIn("build", package["scripts"])
             self.assertFalse((folder / "Makefile").exists(), "a package's commands are its scripts")
-            for name in ("README.md", "AGENTS.md", ".motd"):
-                self.assertTrue((folder / name).is_file(), f"{folder.name} has no {name}")
             if folder.name in SCRIPTS:
                 # The workspace ignores what is rendered, and runs these in every package.
                 self.assertFalse((folder / ".gitignore").exists(), f"{folder.name}: the workspace ignores out/")
@@ -133,7 +144,7 @@ class TemplatesTest(unittest.TestCase):
         self.assertIn("- 'packages/*'", workspace)
         self.assertIn("minimumReleaseAge:", workspace)
         self.assertIn("**/out/", (folder / ".gitignore").read_text(encoding="utf-8").split())
-        self.assertIn("pnpm lint", (folder / ".github/workflows/ci.yml").read_text(encoding="utf-8"))
+        self.assertIn("pnpm lint", (ROOT / "media/workspace/.github/workflows/ci.yml").read_text(encoding="utf-8"))
 
     def test_a_template_names_no_voice_and_holds_nothing_rendered(self):
         for name, called in SCRIPTS.items():
@@ -175,10 +186,10 @@ class TemplatesTest(unittest.TestCase):
         for skill in SKILLS:
             text = (ROOT / ".agents/skills" / skill / "SKILL.md").read_text(encoding="utf-8")
             self.assertIsNone(re.search(r"\bmake (check|sound|preview|pdf)\b|`make`|Makefile", text), skill)
-            for old in ("video-boilerplates", "document-boilerplates"):
+            for old in ("video-boilerplates", "document-boilerplates", "voice-boilerplates"):
                 self.assertNotIn(old, text, f"{skill} sends a reader to a repository that was folded into this one")
             for name in re.findall(r"media init ([a-z]+) ", text):
-                self.assertIn(name, set(TEMPLATES) | {"deck"}, f"{skill} starts from `{name}`")
+                self.assertIn(name, set(TEMPLATES) | {"deck", "voices"}, f"{skill} starts from `{name}`")
             for name in re.findall(r"--template ([a-z]+)", text):
                 self.assertIn(name, TEMPLATES, f"{skill} starts from `{name}`")
 

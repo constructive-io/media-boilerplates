@@ -4,7 +4,7 @@ description: Start and work in a media project made with Constructive Media — 
 compatibility: Constructive Media (`media`) or pgpm (npm) to scaffold; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to build; ffmpeg to pull frames out
 metadata:
   author: constructive-io
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Media workspace
@@ -25,7 +25,7 @@ harbour-talks/
       out/                the sound and the film. Ignored, never committed
 ```
 
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 (`media`) says a script in a voice, checks each line by listening back to it, and
 films the page following the recording.
 
@@ -39,8 +39,9 @@ films the page following the recording.
 | a tour of an application's screens, with a pointer | `media init walkthrough NAME` |
 | pictures the page draws, moving with the voice | `media init animation NAME` |
 | a document read aloud, and printed as a PDF | `media init document NAME` |
+| a library of voices, sounds and faces | `media init library NAME`, wherever it should be: a repository of its own, not a package. See [voice-library](../voice-library/SKILL.md) |
 | any of them in a pnpm workspace that is not a media one | the same. Each is a package and brings nothing else |
-| the engine is not installed | `pgpm init workspace --repo constructive-io/media-boilerplates --name NAME`, then inside it `pgpm init --repo constructive-io/media-boilerplates --moduleName NAME` for a deck. Add `--template walkthrough`, `animation` or `document` for the others |
+| the engine is not installed | `pgpm init workspace --repo constructive-io/media-engine-boilerplates --name NAME`, then inside it `pgpm init --repo constructive-io/media-engine-boilerplates --moduleName NAME` for a deck. Add `--template walkthrough`, `animation` or `document` for the others |
 
 Every question a template asks is a flag, and `media init --list` shows them:
 `--title`, `--fullName` (who is speaking), `--role` (under their name),
@@ -113,6 +114,6 @@ nothing of this machine's libraries. In that package set `lint` to
 
 ## Related
 
-- [constructive-media](https://github.com/constructive-io/constructive-media): the engine and its own skill.
+- [media-engine](https://github.com/constructive-io/media-engine): the engine and its own skill.
 - [conversation-format](https://github.com/constructive-io/conversation-format): the `.conv` format and the `conv` skill.
-- [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates): start a library of voices.
+- [voice-library](../voice-library/SKILL.md) and [build-a-voice](../build-a-voice/SKILL.md): start a library of voices, and put a voice in it.

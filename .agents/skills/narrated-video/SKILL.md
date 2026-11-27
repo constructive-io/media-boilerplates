@@ -16,7 +16,7 @@ talk.conv     the words, who says them, and when the screen changes
 index.html    what is on the screen
 ```
 
-[Constructive Media](https://github.com/constructive-io/constructive-media) says
+[Constructive Media](https://github.com/constructive-io/media-engine) says
 the script (`media say`), which writes the sound and a manifest of when every line
 and every mark fell. Then it films the page following that manifest (`media film`).
 To change the video, change a file and make it again.
@@ -43,7 +43,7 @@ The name is the folder and the name of the film. `media init walkthrough NAME` a
 `media init animation NAME` are the other two. Asked from a keyboard, `media init`
 asks for whatever was not given; `--no-tty` takes the defaults. Without the
 engine, the same files come from
-`pgpm init --repo constructive-io/media-boilerplates --template walkthrough --moduleName NAME`
+`pgpm init --repo constructive-io/media-engine-boilerplates --template walkthrough --moduleName NAME`
 (leave `--template` out for a deck). The workspace itself is the
 `media-workspace` skill's subject.
 
@@ -220,9 +220,9 @@ media film out/my-talk.flac out/my-talk.mp4 --page .
 
 ## Related
 
-- The workspace these are packages of: `npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace`
-- A document read aloud: `npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-document`
-- The engine's own skill: `npx skills add https://github.com/constructive-io/constructive-media --skill constructive-media`
+- The workspace these are packages of: `npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace`
+- A document read aloud: `npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-document`
+- The engine's own skill: `npx skills add https://github.com/constructive-io/media-engine --skill constructive-media`
 - The format's skill, for writing scripts: `npx skills add https://github.com/constructive-io/conversation-format --skill conv`
-- Voices: `npx skills add https://github.com/constructive-io/voice-boilerplates --skill voice-library`
-  for a library of them, and `--skill build-a-voice` for making one from a recording
+- Voices: [voice-library](../voice-library/SKILL.md) for a library of them, and
+  [build-a-voice](../build-a-voice/SKILL.md) for making one from a recording

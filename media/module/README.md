@@ -3,7 +3,7 @@
 ____title____: a talk with slides, made from a script.
 [`talk.conv`](./talk.conv) says the words and when the slides change,
 [`index.html`](./index.html) holds the slides, and
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 says the one and films the other.
 
 ```sh
@@ -26,7 +26,7 @@ makes every package and `pnpm --filter ____moduleName____ build` this one.
 
 The voice can come from a library instead: `media library add owner/some-voices`,
 then `media library voices some-voices`. See
-[voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
+`media init library NAME`.
 
 ## Change the words
 
@@ -114,7 +114,7 @@ the bottom left of the frame, so keep that corner clear on a slide where
 somebody new begins.
 
 Everything a page can do is in
-[the engine's guide to the stage](https://github.com/constructive-io/constructive-media/blob/main/docs/STAGE.md).
+[the engine's guide to the stage](https://github.com/constructive-io/media-engine/blob/main/docs/STAGE.md).
 
 ## Before you call it done
 

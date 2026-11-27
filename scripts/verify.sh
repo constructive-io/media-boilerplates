@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Scaffold a workspace and one of everything as a person would, and check what came out.
+# Scaffold a workspace, one of everything that goes in one, and a library of voices, as a
+# person would, and check what came out.
 #
 #   bash scripts/verify.sh              # scaffold and check, then throw it away
 #   bash scripts/verify.sh FOLDER       # the same, and keep what was made in FOLDER
@@ -31,7 +32,7 @@ kinds=("walkthrough harbour-tour tour.conv" "animation harbour-film scene.conv" 
 
 for folder in "$here"/media/*/; do
   name="$(basename "$folder")"
-  case "$name" in workspace|module) continue ;; esac
+  case "$name" in workspace|module|library) continue ;; esac
   known=""
   for kind in "${kinds[@]}"; do [ "${kind%% *}" = "$name" ] && known=yes; done
   [ -n "$known" ] || { echo "media/$name is a template this script does not check"; exit 1; }
@@ -113,5 +114,53 @@ fi
 
 echo "the workspace installs, and every script is a script"
 (cd "$out" && pnpm install --silent && pnpm lint)
+
+# A library is a repository of its own: it is made outside any workspace.
+library=(--description "The keepers of the light." --fullName "Ada Marsh" --license "CC-BY-4.0")
+
+echo "pgpm: a library of voices, with nothing in it yet"
+rm -rf "$made/pgpm-library" && mkdir -p "$made/pgpm-library"
+(cd "$made/pgpm-library" && run $pgpm init --repo "$scratch/templates" --template library \
+    --moduleName lighthouse-voices "${library[@]}" --no-tty)
+kept="$made/pgpm-library/lighthouse-voices"
+
+echo "library: every answer landed"
+if grep -rn "____" "$kept"; then echo "a blank was left in"; exit 1; fi
+for file in media-library.json README.md AGENTS.md .gitignore .github/workflows/check.yml scripts/check.py \
+            voices/README.md banks/README.md sounds/README.md faces/README.md originals/README.md CONSENT.md; do
+  [ -f "$kept/$file" ] || { echo "missing: $file"; exit 1; }
+done
+if find "$kept" -name ".boilerplate*.json" -o -name .motd -o -name package.json | grep .; then
+  echo "a library is not a package, and a template's own file is not copied in"; exit 1
+fi
+python3 - "$kept/media-library.json" <<'PY'
+import json, sys
+manifest = json.load(open(sys.argv[1]))
+assert manifest["library"] == "lighthouse-voices", manifest
+assert manifest["license"] == "CC-BY-4.0", manifest
+assert manifest["summary"] == "The keepers of the light.", manifest
+assert manifest["voices"] == [], manifest
+PY
+
+echo "library: the engine can write its table of voices, and only the page about recordings is kept of originals/"
+grep -q "^<!-- voices -->$" "$kept/README.md" && grep -q "^<!-- /voices -->$" "$kept/README.md" \
+  || { echo "the README has lost the marks around its table of voices"; exit 1; }
+git -C "$kept" init --quiet
+touch "$kept/originals/narrator.wav"
+git -C "$kept" add --all
+committed="$(git -C "$kept" ls-files originals)"
+[ "$committed" = "originals/README.md" ] || { echo "originals/ would commit: $committed"; exit 1; }
+rm -rf "$kept/.git" "$kept/originals/narrator.wav"
+
+echo "library: it is a library, by its own check"
+PYTHONDONTWRITEBYTECODE=1 python3 "$kept/scripts/check.py" | tee "$scratch/check.log"
+grep -q "^ok: lighthouse-voices, 0 voice(s)$" "$scratch/check.log"
+
+if command -v media > /dev/null 2>&1; then
+  echo "media: the same library"
+  rm -rf "$made/media-library" && mkdir -p "$made/media-library"
+  (cd "$made/media-library" && run media init library lighthouse-voices --repo "$here" "${library[@]}" --no-tty)
+  diff -r "$kept" "$made/media-library/lighthouse-voices"
+fi
 
 echo "ok"

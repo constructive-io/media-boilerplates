@@ -2,7 +2,7 @@
 
 A pnpm workspace of things made from scripts. Each folder under `packages/` has a
 `.conv` script, a page of HTML and a `package.json` whose scripts call
-[Constructive Media](https://github.com/constructive-io/constructive-media) (`media`).
+[Constructive Media](https://github.com/constructive-io/media-engine) (`media`).
 [README.md](./README.md) has the commands; each package's README says what its marks and
 attributes do.
 
@@ -37,8 +37,8 @@ back to it; nobody has heard it until a person has.
 ## Skills
 
 ```sh
-npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace
-npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-video
-npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-document
+npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace
+npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-video
+npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-document
 npx skills add https://github.com/constructive-io/conversation-format --skill conv
 ```

@@ -3,7 +3,7 @@
 ____title____: a document that is read aloud.
 [`index.html`](./index.html) is the document, [`reading.conv`](./reading.conv)
 is what the voice says about it, and
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 makes two things from them: a PDF, and a video of the document being read,
 scrolling to wherever the voice is.
 
@@ -29,7 +29,7 @@ makes every package and `pnpm --filter ____moduleName____ build` this one.
 
 The voice can come from a library instead: `media library add owner/some-voices`,
 then `media library voices some-voices`. See
-[voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
+`media init library NAME`.
 
 ## Write the document
 

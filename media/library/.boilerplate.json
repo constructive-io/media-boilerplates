@@ -1,0 +1,24 @@
+{
+  "type": "generic",
+  "requiresWorkspace": false,
+  "questions": [
+    {
+      "name": "____description____",
+      "message": "One line on what is in the library",
+      "default": "Voices, sounds and faces for scripts.",
+      "required": true
+    },
+    {
+      "name": "____fullName____",
+      "message": "Who keeps the library",
+      "defaultFrom": "git.user.name",
+      "required": true
+    },
+    {
+      "name": "____license____",
+      "message": "The terms others may use it under (a license name, or All rights reserved)",
+      "default": "All rights reserved",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "library": "____moduleName____",
+  "version": "0.1.0",
+  "license": "____license____",
+  "summary": "____description____",
+  "voices": [],
+  "banks": ["banks"],
+  "sounds": ["sounds"],
+  "faces": {}
+}

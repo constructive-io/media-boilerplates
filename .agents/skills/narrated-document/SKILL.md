@@ -10,7 +10,7 @@ metadata:
 # Narrated documents
 
 One page of HTML is the document. A script beside it is what a voice says about
-it. [Constructive Media](https://github.com/constructive-io/constructive-media)
+it. [Constructive Media](https://github.com/constructive-io/media-engine)
 makes two things from them:
 
 ```
@@ -34,7 +34,7 @@ pnpm pdf      # works at once, with no voice
 ```
 
 Without the engine, the same files come from
-`pgpm init --repo constructive-io/media-boilerplates --template document --moduleName my-report`.
+`pgpm init --repo constructive-io/media-engine-boilerplates --template document --moduleName my-report`.
 The workspace itself is the `media-workspace` skill's subject.
 
 ## Write the document first
@@ -142,8 +142,8 @@ media film out/my-report.flac out/my-report.mp4 --page .
 
 ## Related
 
-- The workspace a document is a package of: `npx skills add https://github.com/constructive-io/media-boilerplates --skill media-workspace`
-- Decks, walkthroughs and animations: `npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-video`
-- The engine's own skill: `npx skills add https://github.com/constructive-io/constructive-media --skill constructive-media`
+- The workspace a document is a package of: `npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace`
+- Decks, walkthroughs and animations: `npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-video`
+- The engine's own skill: `npx skills add https://github.com/constructive-io/media-engine --skill constructive-media`
 - The format's skill, for writing scripts: `npx skills add https://github.com/constructive-io/conversation-format --skill conv`
-- Voices: `npx skills add https://github.com/constructive-io/voice-boilerplates --skill voice-library`, and `--skill build-a-voice` for making one from a recording
+- Voices: [voice-library](../voice-library/SKILL.md), and [build-a-voice](../build-a-voice/SKILL.md) for making one from a recording

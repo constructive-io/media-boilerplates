@@ -3,7 +3,7 @@
 ____title____: a tour of a screen, made from a script.
 [`tour.conv`](./tour.conv) says the words and where the pointer goes,
 [`index.html`](./index.html) holds the screens, and
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 says the one and films the other.
 
 ```sh
@@ -26,7 +26,7 @@ makes every package and `pnpm --filter ____moduleName____ build` this one.
 
 The voice can come from a library instead: `media library add owner/some-voices`,
 then `media library voices some-voices`. See
-[voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
+`media init library NAME`.
 
 ## How a tour works
 

@@ -3,7 +3,7 @@
 A media workspace: talks, tours and films that are written, not recorded.
 Every folder under [`packages/`](./packages) is one of them, with a script that
 says the words and a page that holds what is on the screen.
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 (`media`) says the one and films the other.
 
 ```sh
@@ -20,7 +20,7 @@ pnpm build        # say and film everything: packages/*/out/*.mp4
 | `pnpm clean` | throws away everything rendered |
 | `pnpm --filter NAME build` | one package only |
 
-`pnpm build` needs [Constructive Media](https://github.com/constructive-io/constructive-media)
+`pnpm build` needs [Constructive Media](https://github.com/constructive-io/media-engine)
 set up, with a speech server, Chrome or Chromium, and a voice for each persona
 the scripts name.
 
@@ -41,7 +41,7 @@ that says what to change.
 | `document NAME` | a document read aloud, and the same page as a PDF |
 
 Without the engine, the same templates come from
-`pgpm init --repo constructive-io/media-boilerplates --moduleName quarterly-review`,
+`pgpm init --repo constructive-io/media-engine-boilerplates --moduleName quarterly-review`,
 with `--template walkthrough`, `animation` or `document` for the other three.
 
 ## Voices and sounds

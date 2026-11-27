@@ -3,7 +3,7 @@
 ____title____: a short film whose pictures are a page, made from a script.
 [`scene.conv`](./scene.conv) says the words and which scene it is,
 [`index.html`](./index.html) draws every picture, and
-[Constructive Media](https://github.com/constructive-io/constructive-media)
+[Constructive Media](https://github.com/constructive-io/media-engine)
 says the one and films the other.
 
 ```sh
@@ -25,7 +25,7 @@ makes every package and `pnpm --filter ____moduleName____ build` this one.
 
 The voice can come from a library instead: `media library add owner/some-voices`,
 then `media library voices some-voices`. See
-[voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
+`media init library NAME`.
 
 ## How the page knows where the script is
 

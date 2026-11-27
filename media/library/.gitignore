@@ -1,0 +1,13 @@
+.DS_Store
+__pycache__/
+
+# What a clip was cut from stays out of the repository. So does anything rendered.
+originals/*
+!originals/README.md
+out/
+
+# No video here: a library is clips of sound and pictures of faces.
+*.mp4
+*.mov
+*.mkv
+*.webm
