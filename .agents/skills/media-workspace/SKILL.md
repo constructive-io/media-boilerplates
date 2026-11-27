@@ -1,7 +1,7 @@
 ---
 name: media-workspace
-description: Start and work in a media project made with Constructive Media — a pnpm workspace whose packages are narrated decks, walkthroughs, animations and documents, each a `.conv` script and a page. Use when asked to "start a media project", "set up a media workspace", "make a new deck", "add a deck to this repo", "add a talk", "me init", "scaffold a narrated deck", "start a presentation that reads itself", or when a repository has `packages/*/*.conv` and something in it needs to be made, changed or built.
-compatibility: Constructive Media (`me`) or pgpm (npm) to scaffold; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to build; ffmpeg to pull frames out
+description: Start and work in a media project made with Constructive Media — a pnpm workspace whose packages are narrated decks, walkthroughs, animations and documents, each a `.conv` script and a page. Use when asked to "start a media project", "set up a media workspace", "make a new deck", "add a deck to this repo", "add a talk", "media init", "scaffold a narrated deck", "start a presentation that reads itself", or when a repository has `packages/*/*.conv` and something in it needs to be made, changed or built.
+compatibility: Constructive Media (`media`) or pgpm (npm) to scaffold; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to build; ffmpeg to pull frames out
 metadata:
   author: constructive-io
   version: "0.2.0"
@@ -26,28 +26,28 @@ harbour-talks/
 ```
 
 [Constructive Media](https://github.com/constructive-io/constructive-media)
-(`me`) says a script in a voice, checks each line by listening back to it, and
+(`media`) says a script in a voice, checks each line by listening back to it, and
 films the page following the recording.
 
 ## Start
 
 | The request | Run |
 | --- | --- |
-| a new project | `me init workspace NAME` — the workspace and a first deck |
-| a new project, nothing in it | `me init workspace NAME --bare` |
-| another deck, in a workspace | `me init deck NAME --title "…"` at the top of the workspace: it lands in `packages/NAME` |
-| a tour of an application's screens, with a pointer | `me init walkthrough NAME` |
-| pictures the page draws, moving with the voice | `me init animation NAME` |
-| a document read aloud, and printed as a PDF | `me init document NAME` |
+| a new project | `media init workspace NAME` — the workspace and a first deck |
+| a new project, nothing in it | `media init workspace NAME --bare` |
+| another deck, in a workspace | `media init deck NAME --title "…"` at the top of the workspace: it lands in `packages/NAME` |
+| a tour of an application's screens, with a pointer | `media init walkthrough NAME` |
+| pictures the page draws, moving with the voice | `media init animation NAME` |
+| a document read aloud, and printed as a PDF | `media init document NAME` |
 | any of them in a pnpm workspace that is not a media one | the same. Each is a package and brings nothing else |
 | the engine is not installed | `pgpm init workspace --repo constructive-io/media-boilerplates --name NAME`, then inside it `pgpm init --repo constructive-io/media-boilerplates --moduleName NAME` for a deck. Add `--template walkthrough`, `animation` or `document` for the others |
 
-Every question a template asks is a flag, and `me init --list` shows them:
+Every question a template asks is a flag, and `media init --list` shows them:
 `--title`, `--fullName` (who is speaking), `--role` (under their name),
 `--license`. With nobody at the keyboard add `--no-tty`: defaults are taken and
 a question with no default is an error that names its flag.
 
-`me init` never writes into a folder that has something in it. It says so and
+`media init` never writes into a folder that has something in it. It says so and
 stops. Do not copy an existing package to make a new one: the copy keeps the
 old name in its scripts.
 
@@ -79,17 +79,17 @@ A script names a persona (`narrator`), never a voice. Before the first build
 the persona needs one:
 
 ```sh
-me voices                                   # what this machine has
-me voice narrator <a voice the speech server has> --new
+media voices                                # what this machine has
+media voice narrator <a voice the speech server has> --new
 ```
 
 or from a library:
 
 ```sh
-me library search
-me library add owner/some-voices
-me library voices some-voices
-me library lock                             # writes media-libraries.json: commit it
+media library search
+media library add owner/some-voices
+media library voices some-voices
+media library lock                          # writes media-libraries.json: commit it
 ```
 
 `pnpm libraries` on another machine adds what `media-libraries.json` lists, at
@@ -99,7 +99,7 @@ library says so for each voice it holds.
 A script with `@include NAME` for a bank that comes from a library fails
 `pnpm lint`: `conv` looks for `banks/NAME.sounds` beside the script and knows
 nothing of this machine's libraries. In that package set `lint` to
-`me conv talk.conv`, and say that CI can no longer read that script.
+`media conv talk.conv`, and say that CI can no longer read that script.
 
 ## Done means looked at
 

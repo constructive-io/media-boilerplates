@@ -6,11 +6,11 @@
   "private": true,
   "scripts": {
     "lint": "conv check tour.conv",
-    "check": "me conv tour.conv",
-    "say": "me say tour.conv out/____moduleName____.flac",
-    "film": "me film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
+    "check": "media conv tour.conv",
+    "say": "media say tour.conv out/____moduleName____.flac",
+    "film": "media film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
     "build": "pnpm run say && pnpm run film",
-    "preview": "pnpm run say && me stage out/____moduleName____.flac --page .",
+    "preview": "pnpm run say && media stage out/____moduleName____.flac --page .",
     "clean": "rm -rf out"
   }
 }

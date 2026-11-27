@@ -1,7 +1,7 @@
 ---
 name: narrated-video
 description: Make a narrated video from a script and a page with Constructive Media — a deck that presents itself, a walkthrough of an application with a pointer, or an animation drawn by the page. Use when asked to "make a narrated deck", "turn this deck into a video", "make a video of this talk", "make a walkthrough video", "make a product tour", "make an explainer video", "animate this to a voiceover", "add narration to these slides", or when a `.conv` script has `[slide …]` marks and needs a page to follow it.
-compatibility: Constructive Media (`me`) or pgpm (npm) to start from a template; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to say and film; ffmpeg to pull frames out
+compatibility: Constructive Media (`media`) or pgpm (npm) to start from a template; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to say and film; ffmpeg to pull frames out
 metadata:
   author: constructive-io
   version: "0.3.0"
@@ -17,8 +17,8 @@ index.html    what is on the screen
 ```
 
 [Constructive Media](https://github.com/constructive-io/constructive-media) says
-the script (`me say`), which writes the sound and a manifest of when every line
-and every mark fell. Then it films the page following that manifest (`me film`).
+the script (`media say`), which writes the sound and a manifest of when every line
+and every mark fell. Then it films the page following that manifest (`media film`).
 To change the video, change a file and make it again.
 
 ## Pick a template
@@ -33,14 +33,14 @@ To change the video, change a file and make it again.
 Each is a package of a pnpm workspace, started at the top of one:
 
 ```sh
-me init workspace harbour-talks --bare        # once, when there is no workspace yet
+media init workspace harbour-talks --bare     # once, when there is no workspace yet
 cd harbour-talks && pnpm install
-me init deck my-talk --title "What we learned" --fullName "Ada Marsh" --role "Keeper"
+media init deck my-talk --title "What we learned" --fullName "Ada Marsh" --role "Keeper"
 cd packages/my-talk
 ```
 
-The name is the folder and the name of the film. `me init walkthrough NAME` and
-`me init animation NAME` are the other two. Asked from a keyboard, `me init`
+The name is the folder and the name of the film. `media init walkthrough NAME` and
+`media init animation NAME` are the other two. Asked from a keyboard, `media init`
 asks for whatever was not given; `--no-tty` takes the defaults. Without the
 engine, the same files come from
 `pgpm init --repo constructive-io/media-boilerplates --template walkthrough --moduleName NAME`
@@ -77,7 +77,7 @@ Write for the ear. One thought to a line, a line to a step. Spell out what a
 voice would stumble on: "version two", not "v2". A second speaker is a second
 line under `@characters` with a persona of its own.
 
-`pnpm check` (which is `me conv talk.conv`) reads the script and reports every
+`pnpm check` (which is `media conv talk.conv`) reads the script and reports every
 problem at once. It needs no voice, so run it after every edit. `pnpm lint` is
 the same with `conv` alone, which is what CI has.
 
@@ -150,19 +150,19 @@ only needs marking.
 ## Say it and film it
 
 ```sh
-me voice narrator <a voice the speech server has> --new    # once, if `narrator` has no voice
-pnpm build                                                 # me say, then me film: out/my-talk.mp4
+media voice narrator <a voice the speech server has> --new  # once, if `narrator` has no voice
+pnpm build                                                 # media say, then media film: out/my-talk.mp4
 pnpm preview                                               # the page with the sound, in a browser, to scrub
 ```
 
-`me voices` lists who has a voice. A voice can come from a library:
-`me library add owner/some-voices`, then `me library voices some-voices`.
+`media voices` lists who has a voice. A voice can come from a library:
+`media library add owner/some-voices`, then `media library voices some-voices`.
 
 After changing a few lines, say only those again and keep the rest:
 
 ```sh
-me say talk.conv out/my-talk.flac --only 4,7
-me film out/my-talk.flac out/my-talk.mp4 --page .
+media say talk.conv out/my-talk.flac --only 4,7
+media film out/my-talk.flac out/my-talk.mp4 --page .
 ```
 
 ## Before you say it is done
@@ -188,7 +188,7 @@ me film out/my-talk.flac out/my-talk.mp4 --page .
 
 | What you see | Do |
 | --- | --- |
-| `'narrator' has no voice to speak in` | `me voice narrator <a voice> --new`, or add a library |
+| `'narrator' has no voice to speak in` | `media voice narrator <a voice> --new`, or add a library |
 | `no Chrome or Chromium was found` | install one, or name it in `CONSTRUCTIVE_MEDIA_MODEL_BROWSER` |
 | `the page has no slide called …` | the script and the page disagree on a name: fix whichever is wrong |
 | a step shows before the script reaches it | a rule of the page's own sets its `opacity`; the player's rules give way to the page's. Scope yours to `.is-shown` |

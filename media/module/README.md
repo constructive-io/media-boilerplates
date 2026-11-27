@@ -7,7 +7,7 @@ ____title____: a talk with slides, made from a script.
 says the one and films the other.
 
 ```sh
-me voice narrator <a voice your speech server has> --new    # once: whose voice `narrator` is
+media voice narrator <a voice your speech server has> --new  # once: whose voice `narrator` is
 pnpm build                                                  # out/____moduleName____.mp4
 ```
 
@@ -23,8 +23,8 @@ pnpm build                                                  # out/____moduleName
 This is a package of a media workspace: at the top of the workspace, `pnpm build`
 makes every package and `pnpm --filter ____moduleName____ build` this one.
 
-The voice can come from a library instead: `me library add owner/some-voices`,
-then `me library voices some-voices`. See
+The voice can come from a library instead: `media library add owner/some-voices`,
+then `media library voices some-voices`. See
 [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
 
 ## Change the words
@@ -50,7 +50,7 @@ own. A clip is declared under `@sounds`, before the `---`:
 DEMO: { file: demo.mp4 }
 ```
 
-After changing one line, `me say talk.conv out/____moduleName____.flac --only 4`
+After changing one line, `media say talk.conv out/____moduleName____.flac --only 4`
 says only line 4 again and keeps the rest.
 
 ## Change the slides

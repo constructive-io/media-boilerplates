@@ -12,7 +12,7 @@
     "check": "pnpm -r run check",
     "build": "pnpm -r --workspace-concurrency=1 run build",
     "clean": "pnpm -r run clean",
-    "libraries": "me library install"
+    "libraries": "media library install"
   },
   "devDependencies": {
     "@conversation/cli": "^0.1.2"

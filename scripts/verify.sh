@@ -5,7 +5,7 @@
 #   bash scripts/verify.sh FOLDER       # the same, and keep what was made in FOLDER
 #
 # Needs pgpm (npm install -g pgpm), node, pnpm and python3. With Constructive Media
-# installed (`me`), the same is scaffolded with `me init` and the two trees are compared:
+# installed (`media`), the same is scaffolded with `media init` and the two trees are compared:
 # both tools must write the same files. PGPM="npx -y pgpm@latest" tries another pgpm.
 # It does not say or film anything: that takes the engine and a voice.
 set -euo pipefail
@@ -97,18 +97,18 @@ for kind in "${kinds[@]}"; do
   python3 "$here/scripts/follows.py" "$out/packages/$name/$script" "$out/packages/$name/index.html"
 done
 
-if command -v me > /dev/null 2>&1; then
-  echo "me: the same, and the two trees are the same"
-  rm -rf "$made/me" && mkdir -p "$made/me"
-  (cd "$made/me" && run me init workspace "Harbour Talks" --repo "$here" "${workspace[@]}" "${deck[@]}" --no-tty)
-  (cd "$made/me/harbour-talks/packages" && run me init --repo "$here" --moduleName "Second Talk" "${deck[@]}" --no-tty)
+if command -v media > /dev/null 2>&1; then
+  echo "media: the same, and the two trees are the same"
+  rm -rf "$made/media" && mkdir -p "$made/media"
+  (cd "$made/media" && run media init workspace "Harbour Talks" --repo "$here" "${workspace[@]}" "${deck[@]}" --no-tty)
+  (cd "$made/media/harbour-talks/packages" && run media init --repo "$here" --moduleName "Second Talk" "${deck[@]}" --no-tty)
   for kind in "${kinds[@]}"; do
     read -r template name script <<< "$kind"
-    (cd "$made/me/harbour-talks" && run me init "$template" "$name" --repo "$here" "${deck[@]}" --no-tty)
+    (cd "$made/media/harbour-talks" && run media init "$template" "$name" --repo "$here" "${deck[@]}" --no-tty)
   done
-  diff -r "$made/pgpm/harbour-talks" "$made/me/harbour-talks"
+  diff -r "$made/pgpm/harbour-talks" "$made/media/harbour-talks"
 else
-  echo "me is not installed: scaffolded with pgpm only"
+  echo "media is not installed: scaffolded with pgpm only"
 fi
 
 echo "the workspace installs, and every script is a script"

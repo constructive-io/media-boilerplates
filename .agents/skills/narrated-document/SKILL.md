@@ -1,7 +1,7 @@
 ---
 name: narrated-document
 description: Make a document that is also read aloud with Constructive Media — one HTML page that prints as a PDF and is filmed scrolling to wherever a voice is. Use when asked to "narrate this document", "make a video of this report", "read this doc aloud", "turn this write-up into a video", "make a narrated report", "make a PDF and a video of the same thing", "record a walkthrough of this document", or when a report, memo or write-up should reach people who would rather listen than read.
-compatibility: Constructive Media (`me`) or pgpm (npm) to start from the template; Node and pnpm to lint; the engine with Chrome or Chromium to print, and a speech server to say and film; ffmpeg to pull frames out
+compatibility: Constructive Media (`media`) or pgpm (npm) to start from the template; Node and pnpm to lint; the engine with Chrome or Chromium to print, and a speech server to say and film; ffmpeg to pull frames out
 metadata:
   author: constructive-io
   version: "0.2.0"
@@ -14,8 +14,8 @@ it. [Constructive Media](https://github.com/constructive-io/constructive-media)
 makes two things from them:
 
 ```
-index.html      the document           ->  me print  ->  a PDF
-reading.conv    what the voice says    ->  me say, me film  ->  a video of the page being read
+index.html      the document           ->  media print  ->  a PDF
+reading.conv    what the voice says    ->  media say, media film  ->  a video of the page being read
 ```
 
 In the video the page scrolls to the section being spoken of, the others dim,
@@ -26,9 +26,9 @@ and the part named is lit up. Nothing is recorded by hand.
 A document is a package of a pnpm workspace, started at the top of one:
 
 ```sh
-me init workspace harbour-papers --bare       # once, when there is no workspace yet
+media init workspace harbour-papers --bare    # once, when there is no workspace yet
 cd harbour-papers && pnpm install
-me init document my-report --title "How the log is kept" --fullName "Ada Marsh" --role "Keeper"
+media init document my-report --title "How the log is kept" --fullName "Ada Marsh" --role "Keeper"
 cd packages/my-report
 pnpm pdf      # works at once, with no voice
 ```
@@ -96,18 +96,18 @@ is what was asked for, put one paragraph on a line and a `step` on each.
 ## Make it
 
 ```sh
-pnpm check                                                 # me conv reading.conv: needs no voice
-pnpm pdf                                                   # me print . out/my-report.pdf
-me voice narrator <a voice the speech server has> --new    # once, if `narrator` has no voice
-pnpm build                                                 # me say, then me film: out/my-report.mp4
+pnpm check                                                 # media conv reading.conv: needs no voice
+pnpm pdf                                                   # media print . out/my-report.pdf
+media voice narrator <a voice the speech server has> --new  # once, if `narrator` has no voice
+pnpm build                                                 # media say, then media film: out/my-report.mp4
 pnpm preview                                               # the page with the sound, in a browser
 ```
 
 After changing a few lines of the reading, say only those again:
 
 ```sh
-me say reading.conv out/my-report.flac --only 4,7
-me film out/my-report.flac out/my-report.mp4 --page .
+media say reading.conv out/my-report.flac --only 4,7
+media film out/my-report.flac out/my-report.mp4 --page .
 ```
 
 ## Before you say it is done
@@ -133,7 +133,7 @@ me film out/my-report.flac out/my-report.mp4 --page .
 
 | What you see | Do |
 | --- | --- |
-| `'narrator' has no voice to speak in` | `me voice narrator <a voice> --new`, or add a library |
+| `'narrator' has no voice to speak in` | `media voice narrator <a voice> --new`, or add a library |
 | `no Chrome or Chromium was found` | install one, or name it in `CONSTRUCTIVE_MEDIA_MODEL_BROWSER` |
 | `the page has no slide called …` | the script and the page disagree on a section's name |
 | the page does not move in the film | the body lacks `data-stage="document"`, or the sections lack `data-slide` |

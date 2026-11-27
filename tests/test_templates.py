@@ -103,7 +103,7 @@ class TemplatesTest(unittest.TestCase):
                 # The workspace ignores what is rendered, and runs these in every package.
                 self.assertFalse((folder / ".gitignore").exists(), f"{folder.name}: the workspace ignores out/")
                 self.assertEqual(package["scripts"]["lint"], f"conv check {SCRIPTS[folder.name]}")
-                self.assertEqual(package["scripts"]["check"], f"me conv {SCRIPTS[folder.name]}")
+                self.assertEqual(package["scripts"]["check"], f"media conv {SCRIPTS[folder.name]}")
                 for script in ("say", "film", "preview", "clean"):
                     self.assertIn(script, package["scripts"], f"{folder.name} has no {script}")
                 self.assertIs(package["private"], True)
@@ -177,7 +177,7 @@ class TemplatesTest(unittest.TestCase):
             self.assertIsNone(re.search(r"\bmake (check|sound|preview|pdf)\b|`make`|Makefile", text), skill)
             for old in ("video-boilerplates", "document-boilerplates"):
                 self.assertNotIn(old, text, f"{skill} sends a reader to a repository that was folded into this one")
-            for name in re.findall(r"me init ([a-z]+) ", text):
+            for name in re.findall(r"media init ([a-z]+) ", text):
                 self.assertIn(name, set(TEMPLATES) | {"deck"}, f"{skill} starts from `{name}`")
             for name in re.findall(r"--template ([a-z]+)", text):
                 self.assertIn(name, TEMPLATES, f"{skill} starts from `{name}`")

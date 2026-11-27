@@ -7,7 +7,7 @@ ____title____: a tour of a screen, made from a script.
 says the one and films the other.
 
 ```sh
-me voice narrator <a voice your speech server has> --new    # once: whose voice `narrator` is
+media voice narrator <a voice your speech server has> --new  # once: whose voice `narrator` is
 pnpm build                                                  # out/____moduleName____.mp4
 ```
 
@@ -23,8 +23,8 @@ pnpm build                                                  # out/____moduleName
 This is a package of a media workspace: at the top of the workspace, `pnpm build`
 makes every package and `pnpm --filter ____moduleName____ build` this one.
 
-The voice can come from a library instead: `me library add owner/some-voices`,
-then `me library voices some-voices`. See
+The voice can come from a library instead: `media library add owner/some-voices`,
+then `media library voices some-voices`. See
 [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
 
 ## How a tour works

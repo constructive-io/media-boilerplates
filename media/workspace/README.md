@@ -4,7 +4,7 @@ A media workspace: talks, tours and films that are written, not recorded.
 Every folder under [`packages/`](./packages) is one of them, with a script that
 says the words and a page that holds what is on the screen.
 [Constructive Media](https://github.com/constructive-io/constructive-media)
-(`me`) says the one and films the other.
+(`media`) says the one and films the other.
 
 ```sh
 pnpm install      # the script checker, and nothing else
@@ -27,13 +27,13 @@ the scripts name.
 ## Add something
 
 ```sh
-me init deck quarterly-review --title "The quarter in ten minutes"
+media init deck quarterly-review --title "The quarter in ten minutes"
 ```
 
 It lands in `packages/quarterly-review`, with a script, a page and a README
 that says what to change.
 
-| `me init …` | Makes |
+| `media init …` | Makes |
 | --- | --- |
 | `deck NAME` | a talk with slides that reveal as they are spoken of |
 | `walkthrough NAME` | a tour of an application's screens, with a pointer |
@@ -50,16 +50,16 @@ A script names a persona, never a voice. Whose voice a persona is belongs to
 this machine:
 
 ```sh
-me voice narrator <a voice your speech server has> --new
+media voice narrator <a voice your speech server has> --new
 ```
 
 or to a library, which is a repository of voices, sounds and faces:
 
 ```sh
-me library search                     # what the indexes list
-me library add owner/some-voices
-me library voices some-voices         # give its voices to the personas here
-me library lock                       # media-libraries.json: which libraries, at which commit
+media library search                  # what the indexes list
+media library add owner/some-voices
+media library voices some-voices      # give its voices to the personas here
+media library lock                    # media-libraries.json: which libraries, at which commit
 ```
 
 Commit `media-libraries.json`. On another machine `pnpm libraries` adds the
@@ -67,7 +67,7 @@ same libraries at the same commits.
 
 A script that takes sounds from a library (`@include some-bank`) is one `conv`
 cannot check alone, since only the engine knows this machine's libraries. In
-that package, make `lint` the same as `check`: `me conv talk.conv`.
+that package, make `lint` the same as `check`: `media conv talk.conv`.
 
 ## What is kept and what is not
 

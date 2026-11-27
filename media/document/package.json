@@ -6,12 +6,12 @@
   "private": true,
   "scripts": {
     "lint": "conv check reading.conv",
-    "check": "me conv reading.conv",
-    "say": "me say reading.conv out/____moduleName____.flac",
-    "film": "me film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
-    "pdf": "mkdir -p out && me print . out/____moduleName____.pdf",
+    "check": "media conv reading.conv",
+    "say": "media say reading.conv out/____moduleName____.flac",
+    "film": "media film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
+    "pdf": "mkdir -p out && media print . out/____moduleName____.pdf",
     "build": "pnpm run say && pnpm run film",
-    "preview": "pnpm run say && me stage out/____moduleName____.flac --page .",
+    "preview": "pnpm run say && media stage out/____moduleName____.flac --page .",
     "clean": "rm -rf out"
   }
 }

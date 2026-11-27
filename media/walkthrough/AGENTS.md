@@ -1,7 +1,7 @@
 # ____moduleName____ — agent guide
 
 A tour of a screen, made from a script. [`tour.conv`](./tour.conv) is the script, [`index.html`](./index.html) the page, and
-[Constructive Media](https://github.com/constructive-io/constructive-media) (`me`) says
+[Constructive Media](https://github.com/constructive-io/constructive-media) (`media`) says
 the one and films the other. [README.md](./README.md) says what each mark and attribute
 does.
 
@@ -13,7 +13,7 @@ does.
   every `step:N` a `data-step="N"` inside it.
 - **Do not copy `stage.js` or `stage.css` in.** The engine hands them to the page.
 - **Nothing rendered is committed.** `out/` is ignored.
-- **Another one is `me init walkthrough NAME`** at the top of the workspace, not a copy of this
+- **Another one is `media init walkthrough NAME`** at the top of the workspace, not a copy of this
   folder.
 - **A voice is a person's.** `narrator` speaks with whatever voice this machine was
   given for it. Do not clone anybody who has not said yes.

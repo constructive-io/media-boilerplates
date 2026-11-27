@@ -16,7 +16,7 @@
 </p>
 
 ```sh
-me init workspace harbour-talks
+media init workspace harbour-talks
 cd harbour-talks
 pnpm install
 pnpm lint         # every script is a script
@@ -27,16 +27,16 @@ That is a pnpm workspace with one deck in it. A deck is two files: a script in
 the [`.conv` format](https://github.com/constructive-io/conversation-format)
 that says the words and when the slides change, and a page of plain HTML that
 holds the slides. [Constructive Media](https://github.com/constructive-io/constructive-media)
-(`me`) says the script in a voice, checks every line by listening back to it,
+(`media`) says the script in a voice, checks every line by listening back to it,
 and films the page as it follows the recording.
 
 Something else, in a workspace you already have:
 
 ```sh
-me init deck quarterly-review --title "The quarter in ten minutes"
-me init walkthrough first-day --title "Your first day in the log"
-me init animation how-it-works
-me init document annual-report
+media init deck quarterly-review --title "The quarter in ten minutes"
+media init walkthrough first-day --title "Your first day in the log"
+media init animation how-it-works
+media init document annual-report
 ```
 
 Each lands in `packages/NAME`. Any pnpm workspace will do: what is made is a
@@ -56,8 +56,8 @@ Every one but the workspace is a package: a `.conv` script, a page of HTML, and
 a `package.json` whose scripts are `lint`, `check`, `say`, `film`, `build`,
 `preview` and `clean`. The document has `pdf` as well.
 
-`me init workspace NAME` makes the workspace and its first deck together.
-`--bare` makes the workspace alone. `me init --list` says what each template
+`media init workspace NAME` makes the workspace and its first deck together.
+`--bare` makes the workspace alone. `media init --list` says what each template
 asks, and every question is also a flag: `--title`, `--fullName`, `--role`,
 `--license`.
 
@@ -75,7 +75,7 @@ pgpm init --repo constructive-io/media-boilerplates --moduleName first-talk
 pgpm init --repo constructive-io/media-boilerplates --template walkthrough --moduleName first-day
 ```
 
-Both tools write the same files in the same places. `me init` reads this
+Both tools write the same files in the same places. `media init` reads this
 repository with Python's standard library alone, and adds two things pgpm does
 not look at, both in [`.boilerplates.json`](./.boilerplates.json): other names
 for a template (`deck`), and what a new workspace starts with.
@@ -88,7 +88,7 @@ up, with a speech server, Chrome or Chromium, and a voice for the persona
 `narrator`:
 
 ```sh
-me voice narrator <a voice your speech server has> --new
+media voice narrator <a voice your speech server has> --new
 ```
 
 or a voice from a library, started with
@@ -113,15 +113,15 @@ every blank is a question:
 Point either tool at yours:
 
 ```sh
-me init poster launch-night --repo your-org/your-boilerplates
-export CONSTRUCTIVE_MEDIA_BOILERPLATES=your-org/your-boilerplates     # or for every me init
+media init poster launch-night --repo your-org/your-boilerplates
+export CONSTRUCTIVE_MEDIA_BOILERPLATES=your-org/your-boilerplates     # or for every media init
 ```
 
 ## Working on the templates
 
 ```sh
 python3 -m unittest discover -s tests     # every blank has a question, every slide a script names is in the page
-bash scripts/verify.sh                    # scaffolds with pgpm, and with me when it is installed, and compares
+bash scripts/verify.sh                    # scaffolds with pgpm, and with media when it is installed, and compares
 ```
 
 `scripts/verify.sh FOLDER` keeps what it scaffolded, to run `pnpm build` in.
@@ -139,7 +139,7 @@ npx skills add https://github.com/constructive-io/media-boilerplates --skill nar
 
 ## Related
 
-- [constructive-media](https://github.com/constructive-io/constructive-media): the engine that says a script and films a page, and `me init`.
+- [constructive-media](https://github.com/constructive-io/constructive-media): the engine that says a script and films a page, and `media init`.
 - [conversation-format](https://github.com/constructive-io/conversation-format): the `.conv` format the scripts are written in.
 - [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates): a library of voices, sounds and faces.
 - [constructive](https://github.com/constructive-io/constructive): pgpm, whose `init` these templates are written for.

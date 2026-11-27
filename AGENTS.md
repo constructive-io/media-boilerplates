@@ -1,13 +1,13 @@
 # media-boilerplates — agent guide
 
-What `me init` starts a project from: a pnpm workspace, and what goes in one — a narrated
+What `media init` starts a project from: a pnpm workspace, and what goes in one — a narrated
 deck, a walkthrough, an animation, a document that is read aloud. The templates are in
 the pgpm boilerplate format, so `pgpm init --repo` reads them
 too. See [README.md](./README.md).
 
 ## Rules that are specific to this repository
 
-- **Both tools, the same files.** `me init` and `pgpm init --repo` must write the same
+- **Both tools, the same files.** `media init` and `pgpm init --repo` must write the same
   tree from these templates. `scripts/verify.sh` compares them. Anything only the engine
   reads goes in `.boilerplates.json` (`aliases`, `first`), which pgpm passes over.
 - **Constructive's pnpm conventions.** A workspace has `pnpm-workspace.yaml` with
@@ -44,7 +44,7 @@ bash scripts/verify.sh
 ```
 
 Both run in CI. `scripts/verify.sh` needs `pgpm` (`npm install -g pgpm`), node and pnpm.
-With `me` installed it also scaffolds with `me init` and compares the two trees.
+With `media` installed it also scaffolds with `media init` and compares the two trees.
 
 CI cannot film. After changing a page or a script, film it yourself and look:
 

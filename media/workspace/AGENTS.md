@@ -2,21 +2,21 @@
 
 A pnpm workspace of things made from scripts. Each folder under `packages/` has a
 `.conv` script, a page of HTML and a `package.json` whose scripts call
-[Constructive Media](https://github.com/constructive-io/constructive-media) (`me`).
+[Constructive Media](https://github.com/constructive-io/constructive-media) (`media`).
 [README.md](./README.md) has the commands; each package's README says what its marks and
 attributes do.
 
 ## Rules
 
-- **A new package is `me init deck NAME`**, run at the top of the workspace, or
+- **A new package is `media init deck NAME`**, run at the top of the workspace, or
   `walkthrough`, `animation` or `document` in place of `deck`. Do not copy a package by
   hand: a copy keeps the old name in its scripts.
 - **The script decides what is on the screen.** A change on the screen is a mark in the
   script, on the line before the words it goes with. A page times nothing itself.
 - **A script names personas, never voices.** A voice is given to a persona on a machine
-  (`me voice`) or comes from a library (`me library`). Do not clone anybody who has not
+  (`media voice`) or comes from a library (`media library`). Do not clone anybody who has not
   said yes.
-- **Libraries are pinned.** After adding or updating one, run `me library lock` at the top
+- **Libraries are pinned.** After adding or updating one, run `media library lock` at the top
   of the workspace and commit `media-libraries.json`.
 - **Nothing rendered is committed.** No sound, no film, no frames: `out/` is ignored.
 - **One thing is said at a time.** `pnpm build` goes through the packages one by one. Do

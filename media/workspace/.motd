@@ -4,7 +4,7 @@
     pnpm install          the script checker
     pnpm lint             every script is a script. Needs no voice
     pnpm build            say and film everything: packages/*/out/
-    me init deck NAME     another deck, in packages/
+    media init deck NAME     another deck, in packages/
                           or walkthrough, animation, document
 
   README.md says the rest.

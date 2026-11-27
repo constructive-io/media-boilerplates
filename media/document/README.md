@@ -9,7 +9,7 @@ scrolling to wherever the voice is.
 
 ```sh
 pnpm pdf                                                    # out/____moduleName____.pdf
-me voice narrator <a voice your speech server has> --new    # once: whose voice `narrator` is
+media voice narrator <a voice your speech server has> --new  # once: whose voice `narrator` is
 pnpm build                                                  # out/____moduleName____.mp4
 ```
 
@@ -26,8 +26,8 @@ pnpm build                                                  # out/____moduleName
 This is a package of a media workspace: at the top of the workspace, `pnpm build`
 makes every package and `pnpm --filter ____moduleName____ build` this one.
 
-The voice can come from a library instead: `me library add owner/some-voices`,
-then `me library voices some-voices`. See
+The voice can come from a library instead: `media library add owner/some-voices`,
+then `media library voices some-voices`. See
 [voice-boilerplates](https://github.com/constructive-io/voice-boilerplates).
 
 ## Write the document
@@ -65,7 +65,7 @@ for, and leaves the detail to the page, is easier to listen to than the page
 read out. If you do want it word for word, put each paragraph on a line of its
 own.
 
-After changing one line, `me say reading.conv out/____moduleName____.flac --only 4`
+After changing one line, `media say reading.conv out/____moduleName____.flac --only 4`
 says only line 4 again and keeps the rest.
 
 ## Before you call it done
