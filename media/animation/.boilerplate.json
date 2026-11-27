@@ -21,5 +21,26 @@
       "default": "Narrator",
       "required": true
     }
+  ],
+  "skills": [
+    {
+      "source": "constructive-io/media-engine",
+      "skills": [
+        "constructive-media"
+      ]
+    },
+    {
+      "source": "constructive-io/media-engine-boilerplates",
+      "skills": [
+        "media-workspace",
+        "narrated-video"
+      ]
+    },
+    {
+      "source": "constructive-io/conversation-format",
+      "skills": [
+        "conv"
+      ]
+    }
   ]
 }

@@ -24,6 +24,13 @@ APART = {"library"}
 SCRIPTS = {"module": "talk.conv", "animation": "scene.conv", "walkthrough": "tour.conv", "document": "reading.conv"}
 #: The skills this repository holds.
 SKILLS = ("media-workspace", "narrated-video", "narrated-document", "voice-library", "build-a-voice")
+#: Where a template's skills come from, and the ones kept elsewhere: the engine's, and the format's.
+HERE = "constructive-io/media-engine-boilerplates"
+ELSEWHERE = {"constructive-io/media-engine": {"constructive-media"}, "constructive-io/conversation-format": {"conv"}}
+#: The skill a template cannot be worked in without.
+NEEDS = {"workspace": {"media-workspace", "narrated-video", "narrated-document"}, "module": {"narrated-video"},
+         "walkthrough": {"narrated-video"}, "animation": {"narrated-video"}, "document": {"narrated-document"},
+         "library": {"voice-library", "build-a-voice"}}
 
 
 def templates():
@@ -97,7 +104,29 @@ class TemplatesTest(unittest.TestCase):
             if folder.name in APART:
                 # Left out, both tools would look for a workspace to put it in.
                 self.assertIs(described.get("requiresWorkspace"), False)
-            self.assertNotIn("skills", described, "skills are installed from repositories a reader may not have")
+
+    def test_a_template_names_the_skills_that_go_with_it(self):
+        """`pgpm init` and `media init` copy these into `.agents/skills/` of what is made."""
+        for folder in templates():
+            wanted = read(folder).get("skills")
+            self.assertIsInstance(wanted, list, f"{folder.name} names no skills")
+            named = set()
+            for one in wanted:
+                self.assertEqual(set(one), {"source", "skills"}, folder.name)
+                # owner/name: every reader can fetch it, and both tools read it the same way.
+                self.assertRegex(one["source"], r"^constructive-io/[a-z-]+$", folder.name)
+                for skill in one["skills"]:
+                    self.assertNotIn(skill, named, f"{folder.name} names {skill} twice")
+                    named.add(skill)
+                    if one["source"] == HERE:
+                        self.assertTrue((ROOT / ".agents/skills" / skill / "SKILL.md").is_file(),
+                                        f"{folder.name} names {skill}, which is not a skill of this repository")
+                    else:
+                        self.assertIn(skill, ELSEWHERE.get(one["source"], ()), f"{folder.name}: {one['source']}")
+            self.assertLessEqual(NEEDS[folder.name], named, folder.name)
+            self.assertLessEqual({"constructive-media", "conv"}, named, f"{folder.name}: the engine's skill and the format's")
+        every = {skill for folder in templates() for one in read(folder)["skills"] for skill in one["skills"]}
+        self.assertLessEqual(set(SKILLS), every, "a skill of this repository comes with no template")
 
     def test_what_is_made_is_what_it_should_be(self):
         for folder in templates():

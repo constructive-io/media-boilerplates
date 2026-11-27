@@ -82,5 +82,10 @@ Five skills live here, and a template that changes takes its skill with it:
 npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace
 ```
 
+Each template names the skills that go with it, as `skills` in its `.boilerplate.json`, and
+`media init` and `pgpm init` copy them into `.agents/skills/` of the workspace that is made.
+A new skill is added to the templates it is for; `tests/test_templates.py` says so when one
+is in no template, or a template names one that is not there.
+
 `tests/test_voice_skills.py` holds the two about voices to the library template: a file or a
 mark a skill names is in it. When a command of the engine's changes, change the skills with it.

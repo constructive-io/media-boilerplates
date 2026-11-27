@@ -20,5 +20,26 @@
       "default": "All rights reserved",
       "required": true
     }
+  ],
+  "skills": [
+    {
+      "source": "constructive-io/media-engine",
+      "skills": [
+        "constructive-media"
+      ]
+    },
+    {
+      "source": "constructive-io/media-engine-boilerplates",
+      "skills": [
+        "voice-library",
+        "build-a-voice"
+      ]
+    },
+    {
+      "source": "constructive-io/conversation-format",
+      "skills": [
+        "conv"
+      ]
+    }
   ]
 }

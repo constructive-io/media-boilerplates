@@ -36,7 +36,13 @@ back to it; nobody has heard it until a person has.
 
 ## Skills
 
+How the work is done is written down in `.agents/skills/`, put there when this workspace
+was made: `media-workspace`, `narrated-video`, `narrated-document`, `conv` and
+`constructive-media`. Read the one for what you were asked to do before you start. If the
+folder is not there, or to bring a skill up to date:
+
 ```sh
+npx skills add https://github.com/constructive-io/media-engine --skill constructive-media
 npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace
 npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-video
 npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill narrated-document

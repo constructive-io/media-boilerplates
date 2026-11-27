@@ -154,7 +154,11 @@ Filming is not part of CI: it takes the engine and a voice.
 
 ## Skills
 
-Five skills say how the work is done, for an agent that is asked to do it:
+Five skills say how the work is done, for an agent that is asked to do it. A project
+started from a template gets the ones that go with it, in `.agents/skills/` at the top of
+the workspace, with the engine's own (`constructive-media`) and the format's (`conv`): both
+`media init` and `pgpm init` copy them, from the `skills` each template names in its
+`.boilerplate.json`. `media init --no-skills` leaves them out. To add one by hand:
 
 ```sh
 npx skills add https://github.com/constructive-io/media-engine-boilerplates --skill media-workspace      # start a project, add to it, build it

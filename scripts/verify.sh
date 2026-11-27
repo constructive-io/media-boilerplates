@@ -44,6 +44,15 @@ deck=(--title "The harbour at night" --fullName "Ada Marsh" --role "Keeper of th
 
 run() { "$@" > "$scratch/init.log" 2>&1 || { cat "$scratch/init.log"; exit 1; }; }
 
+# The skills at the top of what was made are these, and no others.
+skills() {
+  local top="$1" found; shift
+  found="$(cd "$top/.agents/skills" 2> /dev/null && ls | tr '\n' ' ')" || found=""
+  [ "$found" = "$(printf '%s\n' "$@" | sort | tr '\n' ' ')" ] \
+    || { echo "$top/.agents/skills holds: ${found:-nothing}; wanted: $*"; exit 1; }
+  for skill in "$@"; do [ -f "$top/.agents/skills/$skill/SKILL.md" ] || { echo "$skill has no SKILL.md"; exit 1; }; done
+}
+
 echo "pgpm: a workspace, a deck from its top, a deck from further in, and one of everything else"
 rm -rf "$made/pgpm" && mkdir -p "$made/pgpm"
 (cd "$made/pgpm" && run $pgpm init workspace --repo "$scratch/templates" --name "Harbour Talks" \
@@ -107,10 +116,15 @@ if command -v media > /dev/null 2>&1; then
     read -r template name script <<< "$kind"
     (cd "$made/media/harbour-talks" && run media init "$template" "$name" --repo "$here" "${deck[@]}" --no-tty)
   done
-  diff -r "$made/pgpm/harbour-talks" "$made/media/harbour-talks"
+  # The skills are fetched, each tool keeping its own copy for a while: they are counted below, not compared.
+  diff -r -x .agents "$made/pgpm/harbour-talks" "$made/media/harbour-talks"
+  skills "$made/media/harbour-talks" constructive-media conv media-workspace narrated-video narrated-document
 else
   echo "media is not installed: scaffolded with pgpm only"
 fi
+
+echo "the skills came with it"
+skills "$out" constructive-media conv media-workspace narrated-video narrated-document
 
 echo "the workspace installs, and every script is a script"
 (cd "$out" && pnpm install --silent && pnpm lint)
@@ -123,6 +137,7 @@ rm -rf "$made/pgpm-library" && mkdir -p "$made/pgpm-library"
 (cd "$made/pgpm-library" && run $pgpm init --repo "$scratch/templates" --template library \
     --moduleName lighthouse-voices "${library[@]}" --no-tty)
 kept="$made/pgpm-library/lighthouse-voices"
+skills "$kept" constructive-media conv voice-library build-a-voice
 
 echo "library: every answer landed"
 if grep -rn "____" "$kept"; then echo "a blank was left in"; exit 1; fi
@@ -160,7 +175,8 @@ if command -v media > /dev/null 2>&1; then
   echo "media: the same library"
   rm -rf "$made/media-library" && mkdir -p "$made/media-library"
   (cd "$made/media-library" && run media init library lighthouse-voices --repo "$here" "${library[@]}" --no-tty)
-  diff -r "$kept" "$made/media-library/lighthouse-voices"
+  diff -r -x .agents "$kept" "$made/media-library/lighthouse-voices"
+  skills "$made/media-library/lighthouse-voices" constructive-media conv voice-library build-a-voice
 fi
 
 echo "ok"
