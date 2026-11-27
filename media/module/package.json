@@ -11,6 +11,7 @@
     "film": "media film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
     "build": "pnpm run say && pnpm run film",
     "preview": "pnpm run say && media stage out/____moduleName____.flac --page .",
+    "stills": "media still out/____moduleName____.flac out/stills --page . --sheet",
     "clean": "rm -rf out"
   }
 }

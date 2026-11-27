@@ -9,8 +9,12 @@ does.
 
 - **The script decides what is on the screen.** A change on the screen is a mark in
   `scene.conv`, on the line before the words it goes with. Do not time anything in the page.
-- **Every `[slide NAME]` in the script is a `data-slide="NAME"` in the page**, and
-  every `step:N` a `data-step="N"` inside it.
+- **Every `[slide NAME]` in the script is a scene the page draws.** This page has no
+  `data-slide` elements: it draws from `window.stage.state.slide`, and
+  `window.stage.since('NAME', N)` says how long ago the script reached `[slide NAME step:N]`
+  (null before it). A name the page never asks about shows nothing.
+- **Look before you film.** `pnpm stills` draws every beat in seconds; filming takes as
+  long as the sound runs.
 - **Do not copy `stage.js` or `stage.css` in.** The engine hands them to the page.
 - **Nothing rendered is committed.** `out/` is ignored.
 - **Another one is `media init animation NAME`** at the top of the workspace, not a copy of this

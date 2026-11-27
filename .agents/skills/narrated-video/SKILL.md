@@ -73,6 +73,26 @@ NARRATOR: A script says the words.
 **A mark goes on the line before the words it belongs with.** It lands at the
 moment those words start.
 
+**Sounds** come from a bank: one of the script's own under `@sounds`, or a
+library's, pulled in by name at the top of the script. Each bank is its own
+line (`@include foley` does not bring `interface` with it):
+
+```conv
+@include foley
+@include interface
+---
+[slide door]
+[DOOR]
+[pause 1.5]
+NARRATOR: Somebody is home.
+```
+
+A sound and then a pause is a beat with nobody talking: the sound plays in the
+quiet, and a mark before them lands when the quiet starts, so the page can move
+while the sound is heard. A script that includes a library's bank is checked
+with `pnpm check` (the engine knows the libraries on this machine); `pnpm lint`
+alone cannot find it.
+
 Write for the ear. One thought to a line, a line to a step. Spell out what a
 voice would stumble on: "version two", not "v2". A second speaker is a second
 line under `@characters` with a persona of its own.
@@ -153,7 +173,14 @@ only needs marking.
 media voice narrator <a voice the speech server has> --new  # once, if `narrator` has no voice
 pnpm build                                                 # media say, then media film: out/my-talk.mp4
 pnpm preview                                               # the page with the sound, in a browser, to scrub
+pnpm stills                                                # after `pnpm say`: a picture of every beat, in out/stills/
 ```
+
+Look before you film. `media still` draws the page at any moment of the
+recording in a few seconds, where a film takes as long as the sound runs:
+`media still out/my-talk.flac out/stills --page . --at how:2 --at 48.5` for
+chosen moments (a slide, a slide and step, or seconds), `--sheet` for all of
+them on one page.
 
 `media voices` lists who has a voice. A voice can come from a library:
 `media library add owner/some-voices`, then `media library voices some-voices`.
@@ -172,12 +199,7 @@ media film out/my-talk.flac out/my-talk.mp4 --page .
    the listening check: say it again with `--only`, or reword it.
 3. `pnpm build` ended with no `to look at`. That is where a slide the script names and
    the page lacks is reported.
-4. **Look at frames.** One from every slide, at a time taken from the manifest:
-
-   ```sh
-   ffmpeg -ss 12.5 -i out/my-talk.mp4 -frames:v 1 frame.png
-   ```
-
+4. **Look at every beat.** `pnpm stills`, and read the sheets in `out/stills/`.
    Check that the slide is the one being spoken of, that nothing runs off the
    frame, that the captions do not cover what matters, and in a walkthrough that
    the pointer is on the thing named.
@@ -203,3 +225,4 @@ media film out/my-talk.flac out/my-talk.mp4 --page .
 - The engine's own skill: `npx skills add https://github.com/constructive-io/constructive-media --skill constructive-media`
 - The format's skill, for writing scripts: `npx skills add https://github.com/constructive-io/conversation-format --skill conv`
 - Voices: `npx skills add https://github.com/constructive-io/voice-boilerplates --skill voice-library`
+  for a library of them, and `--skill build-a-voice` for making one from a recording

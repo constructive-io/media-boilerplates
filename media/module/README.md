@@ -18,6 +18,7 @@ pnpm build                                                  # out/____moduleName
 | `pnpm say` | says the script: `out/____moduleName____.flac`, and a manifest of when everything fell |
 | `pnpm build` | says it, then films the deck following that recording |
 | `pnpm preview` | opens the deck in your browser with the sound, to scrub through |
+| `pnpm stills` | after `pnpm say`: a picture of every beat in `out/stills/`, in seconds, to look at before filming |
 | `open index.html` | the deck alone, stepped through with the arrow keys |
 
 This is a package of a media workspace: at the top of the workspace, `pnpm build`

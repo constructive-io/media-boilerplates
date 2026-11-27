@@ -104,7 +104,7 @@ class TemplatesTest(unittest.TestCase):
                 self.assertFalse((folder / ".gitignore").exists(), f"{folder.name}: the workspace ignores out/")
                 self.assertEqual(package["scripts"]["lint"], f"conv check {SCRIPTS[folder.name]}")
                 self.assertEqual(package["scripts"]["check"], f"media conv {SCRIPTS[folder.name]}")
-                for script in ("say", "film", "preview", "clean"):
+                for script in ("say", "film", "preview", "stills", "clean"):
                     self.assertIn(script, package["scripts"], f"{folder.name} has no {script}")
                 self.assertIs(package["private"], True)
 

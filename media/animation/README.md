@@ -18,6 +18,7 @@ pnpm build                                                  # out/____moduleName
 | `pnpm say` | says the script: `out/____moduleName____.flac`, and a manifest of when everything fell |
 | `pnpm build` | films the page following that recording |
 | `pnpm preview` | opens the page in your browser with the sound, to scrub through |
+| `pnpm stills` | after `pnpm say`: a picture of every beat in `out/stills/`, in seconds, to look at before filming |
 
 This is a package of a media workspace: at the top of the workspace, `pnpm build`
 makes every package and `pnpm --filter ____moduleName____ build` this one.

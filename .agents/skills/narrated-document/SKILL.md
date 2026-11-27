@@ -146,4 +146,4 @@ media film out/my-report.flac out/my-report.mp4 --page .
 - Decks, walkthroughs and animations: `npx skills add https://github.com/constructive-io/media-boilerplates --skill narrated-video`
 - The engine's own skill: `npx skills add https://github.com/constructive-io/constructive-media --skill constructive-media`
 - The format's skill, for writing scripts: `npx skills add https://github.com/constructive-io/conversation-format --skill conv`
-- Voices: `npx skills add https://github.com/constructive-io/voice-boilerplates --skill voice-library`
+- Voices: `npx skills add https://github.com/constructive-io/voice-boilerplates --skill voice-library`, and `--skill build-a-voice` for making one from a recording

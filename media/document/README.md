@@ -21,6 +21,7 @@ pnpm build                                                  # out/____moduleName
 | `pnpm say` | says the script: `out/____moduleName____.flac`, and a manifest of when everything fell |
 | `pnpm build` | films the document following that recording |
 | `pnpm preview` | opens the document in your browser with the sound, to scrub through |
+| `pnpm stills` | after `pnpm say`: a picture of every beat in `out/stills/`, in seconds, to look at before filming |
 | `open index.html` | the document alone |
 
 This is a package of a media workspace: at the top of the workspace, `pnpm build`
