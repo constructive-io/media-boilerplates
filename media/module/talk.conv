@@ -1,0 +1,38 @@
+# ____title____
+#
+# A talk with slides. `pnpm build` says it and films the deck in index.html.
+# A mark goes on the line before the words it belongs with:
+#
+#   [slide how]           show the slide the page calls `how`
+#   [slide how step:2]    reveal its steps up to 2
+#
+# A step for every line that is spoken reads best: what is being said is what just arrived.
+#   [speakers ...]        what is drawn of whoever speaks: faces, lower-third, waveform, captions
+#
+@characters
+NARRATOR: { persona: narrator, name: ____fullName____, title: ____role____ }
+---
+[speakers lower-third captions]
+[slide title]
+NARRATOR: Hello. This is a talk that was written down, not recorded.
+[slide how]
+NARRATOR: Three things make it.
+[slide how step:1]
+NARRATOR: A script says the words, and when the slides change.
+[slide how step:2]
+NARRATOR: A page holds the slides.
+[slide how step:3]
+NARRATOR: And the engine says the script, then films the page as it follows along.
+[slide moves]
+NARRATOR: Nothing on a slide has to just appear.
+[slide moves step:1]
+NARRATOR: A word in the page says how each thing arrives: from the left, wiped across, or drawn like a line.
+[slide moves step:2]
+NARRATOR: And what a page draws for itself, like these bars, it draws by the script's clock, so the film and the preview agree.
+[slide marks]
+[speakers waveform captions]
+NARRATOR: Everything that happens on the screen is a mark in the script, on the line before the words it goes with.
+[pause 0.4]
+[slide close]
+[speakers captions]
+NARRATOR: Change the words, change the slides, and film it again.

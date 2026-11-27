@@ -1,0 +1,5 @@
+{
+  "dir": "media",
+  "aliases": { "deck": "module" },
+  "first": { "template": "module", "name": "first-talk" }
+}

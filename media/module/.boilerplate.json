@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "requiresWorkspace": "pnpm",
+  "questions": [
+    {
+      "name": "____title____",
+      "message": "The title on the first screen",
+      "default": "A short talk",
+      "required": true
+    },
+    {
+      "name": "____fullName____",
+      "message": "Who is speaking",
+      "setFrom": "workspace.author.name",
+      "defaultFrom": "git.user.name",
+      "required": true
+    },
+    {
+      "name": "____role____",
+      "message": "What is written under their name",
+      "default": "Presenter",
+      "required": true
+    }
+  ]
+}

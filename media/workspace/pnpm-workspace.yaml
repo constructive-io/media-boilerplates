@@ -1,0 +1,10 @@
+packages:
+  - 'packages/*'
+
+minimumReleaseAge: 2880
+
+# The script checker is first-party, and exempt from the wait.
+minimumReleaseAgeExclude:
+  - '@conversation/*'
+
+onlyBuiltDependencies: []

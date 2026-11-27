@@ -1,0 +1,16 @@
+{
+  "name": "____moduleName____",
+  "version": "0.0.1",
+  "description": "A talk with slides, made from a script",
+  "author": "____fullName____",
+  "private": true,
+  "scripts": {
+    "lint": "conv check talk.conv",
+    "check": "me conv talk.conv",
+    "say": "me say talk.conv out/____moduleName____.flac",
+    "film": "me film out/____moduleName____.flac out/____moduleName____.mp4 --page .",
+    "build": "pnpm run say && pnpm run film",
+    "preview": "pnpm run say && me stage out/____moduleName____.flac --page .",
+    "clean": "rm -rf out"
+  }
+}

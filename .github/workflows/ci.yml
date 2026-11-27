@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  templates:
+    name: Templates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PGPM_VERSION: 5.41.34
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pgpm
+        run: npm install -g pgpm@${{ env.PGPM_VERSION }}
+
+      - name: Every blank has a question
+        run: python3 -m unittest discover -s tests
+
+      # Scaffolds with pgpm, installs the workspace and reads every script. It says and
+      # films nothing: that takes the engine and a voice.
+      - name: A workspace scaffolds, installs and lints
+        run: bash scripts/verify.sh

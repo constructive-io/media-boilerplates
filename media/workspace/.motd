@@ -1,0 +1,9 @@
+
+  A media workspace: every package is something made from a script.
+
+    pnpm install          the script checker
+    pnpm lint             every script is a script. Needs no voice
+    pnpm build            say and film everything: packages/*/out/
+    me init deck NAME     another deck, in packages/
+
+  README.md says the rest.
