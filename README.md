@@ -55,6 +55,19 @@ A library holds the clips voices are cloned from, banks of sounds and faces,
 and one file that says what is in it and, for every voice, whose it is and by
 what right it is there. The template has no voices in it.
 
+## Features
+
+* 🧰 **[workspace](./media/workspace)** — a pnpm workspace with `packages/*`, the script checker and CI that reads every script; `media init workspace NAME` makes it with a first deck inside, and `--bare` makes it alone
+* 🖼️ **[deck](./media/module)** — the `module` template: a `talk.conv` script and an `index.html` of slides that reveal as they are spoken of
+* 🖱️ **[walkthrough](./media/walkthrough)** — a tour of an application's screens, with a pointer that goes to what is being spoken of
+* ✏️ **[animation](./media/animation)** — a film whose pictures the page draws for itself, moving with the voice
+* 📄 **[document](./media/document)** — a page read aloud and filmed as it scrolls to where the voice is; its `pdf` script writes the same page as a PDF
+* 🎙️ **[library](./media/library)** — a repository of voices, banks of sounds and faces, with a `media-library.json`, a `CONSENT.md` and a check that runs on every push; `voices` is another name for it, and it has no voices in it
+* 📦 **[One set of scripts](#templates)** — each package has `lint`, `check`, `say`, `film`, `stills`, `build`, `preview` and `clean`; `build` says the script with `media say` and films the page with `media film`
+* 🤖 **[Five agent skills](#skills)** — `media-workspace`, `narrated-video`, `narrated-document`, `voice-library` and `build-a-voice`; a new project gets the ones its template names in `.agents/skills/`, with `constructive-media` and `conv`
+* 🔀 **[Any boilerplates repository](#your-own-boilerplates)** — `media init --repo owner/name` reads yours, and `CONSTRUCTIVE_MEDIA_BOILERPLATES` sets it for every `media init`
+* 🐘 **[The pgpm format](#with-pgpm-without-the-engine)** — the same repository works with `pgpm init --repo constructive-io/media-engine-boilerplates`, so the engine is not needed to start a project
+
 ## Templates
 
 | Template | Is | Lands |
