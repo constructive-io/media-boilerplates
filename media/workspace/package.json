@@ -15,6 +15,6 @@
     "libraries": "media library install"
   },
   "devDependencies": {
-    "@conversation/cli": "^0.1.2"
+    "@conversation/cli": "^0.1.4"
   }
 }
