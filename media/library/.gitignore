@@ -6,8 +6,12 @@ originals/*
 !originals/README.md
 out/
 
-# No video here: a library is clips of sound and pictures of faces.
+# No video here, but for a short clip among the sounds that a script cuts to.
 *.mp4
 *.mov
 *.mkv
 *.webm
+!sounds/**/*.mp4
+!sounds/**/*.mov
+!sounds/**/*.mkv
+!sounds/**/*.webm

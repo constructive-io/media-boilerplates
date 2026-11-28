@@ -160,6 +160,16 @@ class CheckTest(unittest.TestCase):
         self.assertTrue(any("`session.mov` is footage" in note for note in notes))
         self.assertTrue(any("its clip is 6 MB" in note for note in notes))
 
+    def test_a_short_video_among_the_sounds_is_a_clip_to_cut_to(self):
+        library(self.folder)
+        (self.folder / "banks/titles.sounds").write_text("@sounds\nOPENING: { file: opening.mp4 }\n")
+        (self.folder / "sounds/opening.mp4").write_bytes(b"not really a title")
+        _, _, problems, notes = check.check(self.folder)
+        self.assertEqual(problems, [])
+        self.assertEqual(notes, [])
+        (self.folder / "faces/opening.mp4").write_bytes(b"not really a title")
+        self.assertIn("`faces/opening.mp4` is footage", check.check(self.folder)[3][0])
+
     def test_what_it_does_not_know_is_noted_not_refused(self):
         _, _, problems, notes = check.check(library(self.folder, colour="blue"))
         self.assertEqual(problems, [])

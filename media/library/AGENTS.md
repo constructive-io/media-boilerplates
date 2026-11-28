@@ -12,7 +12,8 @@ names everything in it. [README.md](./README.md) says how a voice is added.
 - **Never clone a real person from a recording found somewhere.** An interview, a talk or
   a film is not consent.
 - **Clips only.** A clip is 15 to 28 seconds. The recording it was cut from goes in
-  `originals/`, which is not committed apart from its README. No video.
+  `originals/`, which is not committed apart from its README. No video, but for a clip of a
+  few seconds in `sounds/` that a bank names and a script cuts to with `[video NAME]`.
 - **`--by` and `--kind` come from a person.** `media library clip` will not run without
   them, and that is the point. [CONSENT.md](./CONSENT.md) is what to send somebody whose
   voice it is; what they answer is kept outside this repository.

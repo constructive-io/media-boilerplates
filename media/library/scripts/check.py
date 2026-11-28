@@ -206,7 +206,10 @@ def check(folder):
             continue
         ending, where = path.suffix.lower(), path.relative_to(folder)
         if ending in FOOTAGE:
-            notes.append(f"`{where}` is footage. A library holds clips of sound and pictures of faces, and no video")
+            # A short clip in the sounds is what a script cuts to with `[video NAME]`. Any other is a mistake.
+            if not any(within_one(path, one) for one in sounds):
+                notes.append(f"`{where}` is footage. A library holds video only as a short clip among its sounds, "
+                             "for a script to cut to")
         elif ending in SOUND and path not in named and not any(within_one(path, one) for one in sounds):
             notes.append(f"`{where}` is a recording that no voice and no bank names. If it is what a clip was cut "
                          "from, keep it somewhere else")
