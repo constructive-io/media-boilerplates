@@ -4,7 +4,7 @@ description: Make a narrated video from a script and a page with Constructive Me
 compatibility: Constructive Media (`media`) or pgpm (npm) to start from a template; Node and pnpm to lint; the engine with a speech server and Chrome or Chromium to say and film; ffmpeg to pull frames out
 metadata:
   author: constructive-io
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Narrated video
@@ -66,12 +66,15 @@ NARRATOR: A script says the words.
 | --- | --- |
 | `[slide NAME]` | shows the slide, screen or scene the page calls `NAME` |
 | `[slide NAME step:N]` | reveals that slide's steps up to N; in a walkthrough, sends the pointer to step N |
+| `<slide NAME step:N>` inside a line | the same, where the words have reached: `ADA: It costs less, <slide how step:3> and it is quicker.` The sentence is still said in one breath |
 | `[speakers …]` | what is drawn of whoever speaks from here on: any of `faces`, `lower-third`, `waveform`, `captions`; `all`; `off` |
 | `[video CLIP]` | plays a clip full screen with its sound; `CLIP: { file: demo.mp4 }` is declared under `@sounds` |
 | `[pause 0.5]` | half a second of quiet |
 
 **A mark goes on the line before the words it belongs with.** It lands at the
-moment those words start.
+moment those words start. A mark that belongs to the middle of a sentence is
+written inside the line, in angle brackets, and lands where the words have
+reached.
 
 **Sounds** come from a bank: one of the script's own under `@sounds`, or a
 library's, pulled in by name at the top of the script. Each bank is its own
@@ -134,7 +137,9 @@ make it a film, and the `deck` template shows all three:
 
 1. **A step for every spoken line.** Put `[slide how step:2]` before the line
    that speaks of it. A slide that sits still under four lines has three steps
-   missing.
+   missing. When a step belongs to a clause in the middle of a sentence, write
+   `<slide how step:3>` inside the line; do not cut the sentence in two, for
+   the voice starts over at every line.
 2. **`data-enter` on what arrives**: `rise` (when nothing is said), `fade`,
    `left`, `right`, `grow`, `pop`, `wipe`, or `draw` for an SVG line or shape.
    `style="--stage-delay: 0.3s"` holds one back so several arrive in turn;

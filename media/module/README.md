@@ -38,6 +38,7 @@ it belongs with:
 | --- | --- |
 | `[slide how]` | shows the slide the page calls `how` |
 | `[slide how step:2]` | reveals its steps up to 2 |
+| `<slide how step:3>` inside a line | reveals step 3 where the words have reached. The sentence is still said in one breath |
 | `[speakers lower-third captions]` | what is drawn of whoever speaks, from here on: any of `faces`, `lower-third`, `waveform`, `captions` |
 | `[speakers off]` | draws nothing of them |
 | `[pause 0.5]` | half a second of quiet |

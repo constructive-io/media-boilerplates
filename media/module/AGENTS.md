@@ -8,9 +8,12 @@ does.
 ## Rules
 
 - **The script decides what is on the screen.** A change on the screen is a mark in
-  `talk.conv`, on the line before the words it goes with. Do not time anything in the page:
-  no `setTimeout`, no counting frames. What the page draws for itself is drawn from
-  `window.stage.since(SLIDE, STEP)`, the seconds since the script got there.
+  `talk.conv`, on the line before the words it goes with, or inside the line
+  (`<slide how step:3>`) when it belongs to the middle of a sentence. Do not cut a
+  sentence in two to cue a build: the voice starts over at every line. Do not time
+  anything in the page: no `setTimeout`, no counting frames. What the page draws for
+  itself is drawn from `window.stage.since(SLIDE, STEP)`, the seconds since the script
+  got there.
 - **A step for every spoken line.** What is being said is what just arrived. A slide
   that sits still under four lines is a slide with three steps missing.
 - **How a thing arrives is `data-enter`**, not an animation of your own: `rise`, `fade`,
